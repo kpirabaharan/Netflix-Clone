@@ -1,24 +1,25 @@
-'use client';
+import React from 'react';
 
 interface InputProps {
   id: string;
-  value?: string;
+  onChange: any;
+  value: string;
   label: string;
   type?: string;
-  onChange: any;
 }
 
-const Input = ({ id, value, label, type, onChange }: InputProps) => {
+const Input: React.FC<InputProps> = ({ id, onChange, value, label, type }) => {
   return (
     <div className='relative'>
       <input
-        id={id}
+        onChange={onChange}
         value={value}
         type={type}
-        onChange={onChange}
-        className='block peer rounded-md px-6 pt-6 pb-1 w-full text-md text-white
-        bg-neutral-700 appearance-none focus:outline-none focus:ring-0 invalid:border-b-1'
-        placeholder=''
+        id={id}
+        className='block rounded-md px-6 pt-6 pb-1 w-full text-md text-white 
+        bg-neutral-700 appearance-none focus:outline-none focus:ring-0 peer 
+        invalid:border-b-1'
+        placeholder=' '
       />
       <label
         htmlFor={id}

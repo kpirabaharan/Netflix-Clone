@@ -1,6 +1,10 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
+import { FcGoogle } from 'react-icons/fc';
+import { FaGithub } from 'react-icons/fa';
+import { signIn } from 'next-auth/react';
 import { toast } from 'react-hot-toast';
 
 import { postData } from '@/lib/helpers';
@@ -8,9 +12,11 @@ import { postData } from '@/lib/helpers';
 import Input from '@/components/Input';
 
 const AuthContent = () => {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const [variant, setVariant] = useState('login');
 
@@ -20,7 +26,24 @@ const AuthContent = () => {
     );
   }, []);
 
+  const login = async () => {
+    console.log('Signing In');
+    try {
+      const user = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+        callbackUrl: '/',
+      });
+
+      router.push('/');
+    } catch (err) {
+      console.log((err as Error).message);
+    }
+  };
+
   const register = async () => {
+    setIsLoading(true);
     const data = { email, name, password };
 
     const { user, status, error } = await postData({
@@ -28,14 +51,13 @@ const AuthContent = () => {
       data,
     });
 
-    console.log({ user, status, error });
-
     if (status !== 200) {
       if (status === 422) toast.error(error);
     } else {
-      toast.success('Successfully Registered')
+      toast.success('Successfully Registered');
       setVariant('login');
     }
+    setIsLoading(false);
   };
 
   return (
@@ -71,13 +93,37 @@ const AuthContent = () => {
             onChange={(event: any) => setPassword(event.target.value)}
           />
         </div>
+
         <button
-          onClick={register}
+          disabled={isLoading}
+          onClick={variant === 'login' ? login : register}
           className='bg-red-700 py-3 text-white rounded-md w-full mt-10 
       hover:bg-red-800 transition'
         >
           {variant === 'login' ? 'Sign In' : 'Sign Up'}
         </button>
+
+        <div className='flex flex-row items-center gap-4 mt-8 justify-center'>
+          <div
+            className='w-10 h-10 bg-white rounded-full flex items-center 
+            justify-center cursor-pointer hover:opacity-80 transition'
+          >
+            <FcGoogle
+              size={30}
+              onClick={() => signIn('google', { callbackUrl: '/' })}
+            />
+          </div>
+          <div
+            className='w-10 h-10 bg-white rounded-full flex items-center 
+            justify-center cursor-pointer hover:opacity-80 transition'
+          >
+            <FaGithub
+              size={30}
+              onClick={() => signIn('github', { callbackUrl: '/' })}
+            />
+          </div>
+        </div>
+
         <p className='text-neutral-500 mt-12 text-sm'>
           {variant === 'login'
             ? 'First time using Netflix?'

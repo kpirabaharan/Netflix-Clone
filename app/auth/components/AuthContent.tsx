@@ -64,7 +64,7 @@ const AuthContent = () => {
     <div className='flex justify-center'>
       <div
         className='bg-black/70 px-16 py-16 self-center mt-2 md:w-3/5 
-      md:max-w-md rounded-md w-full'
+        md:max-w-md rounded-md w-full'
       >
         <h2 className='text-white text-3xl mb-8 font-semibold'>
           {variant === 'login' ? 'Sign In' : 'Register'}
@@ -97,30 +97,28 @@ const AuthContent = () => {
         <button
           disabled={isLoading}
           onClick={variant === 'login' ? login : register}
-          className='bg-red-700 py-3 text-white rounded-md w-full mt-10 
-      hover:bg-red-800 transition'
+          className='bg-red-700 py-3 text-white rounded-md w-full mt-8 
+        hover:bg-opacity-80 transition'
         >
           {variant === 'login' ? 'Sign In' : 'Sign Up'}
         </button>
 
-        <div className='flex flex-row items-center gap-4 mt-8 justify-center'>
+        <div className='flex flex-col gap-y-4 mt-8'>
           <div
-            className='w-10 h-10 bg-white rounded-full flex items-center 
-            justify-center cursor-pointer hover:opacity-80 transition'
+            onClick={() => signIn('google', { callbackUrl: '/' })}
+            className='flex flex-row gap-x-4 pl-4 bg-neutral-200 hover:bg-opacity-80 rounded-md py-2 
+            items-center cursor-pointer'
           >
-            <FcGoogle
-              size={30}
-              onClick={() => signIn('google', { callbackUrl: '/' })}
-            />
+            <FcGoogle size={30} />
+            <p className='font-semibold'>Continue with Google</p>
           </div>
           <div
-            className='w-10 h-10 bg-white rounded-full flex items-center 
-            justify-center cursor-pointer hover:opacity-80 transition'
+            onClick={() => signIn('github', { callbackUrl: '/' })}
+            className='flex flex-row gap-x-4 pl-4 bg-neutral-200 hover:bg-opacity-80 rounded-md py-2
+            items-center cursor-pointer'
           >
-            <FaGithub
-              size={30}
-              onClick={() => signIn('github', { callbackUrl: '/' })}
-            />
+            <FaGithub size={30} />
+            <p className='font-semibold'>Continue with Github</p>
           </div>
         </div>
 

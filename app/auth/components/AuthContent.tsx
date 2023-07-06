@@ -5,11 +5,15 @@ import { useState, useCallback } from 'react';
 import { postData } from '@/lib/helpers';
 
 import Input from '@/components/Input';
+import { error } from 'console';
+import { stat } from 'fs';
 
 const AuthContent = () => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isError, setIsError] = useState(false);
 
   const [variant, setVariant] = useState('login');
 
@@ -22,10 +26,21 @@ const AuthContent = () => {
   const register = async () => {
     const data = { email, name, password };
 
-    const { user } = await postData({
+    const { user, status, error } = await postData({
       url: '/api/register',
       data,
     });
+
+    console.log({ user, status, error });
+
+    if (status !== 200) {
+      setIsError(true);
+      setErrorMessage(error);
+    } else {
+      setIsError(false);
+      setErrorMessage('');
+      setVariant('login');
+    }
   };
 
   return (
@@ -60,6 +75,11 @@ const AuthContent = () => {
             label='Password'
             onChange={(event: any) => setPassword(event.target.value)}
           />
+          {isError ? (
+            <p className='font-bold text-sm text-red-800'>{errorMessage}</p>
+          ) : (
+            <></>
+          )}
         </div>
         <button
           onClick={register}

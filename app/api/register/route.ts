@@ -12,7 +12,10 @@ export const POST = async (req: Request) => {
     });
 
     if (existingUser) {
-      return NextResponse.json('Email taken', { status: 422 });
+      return NextResponse.json({
+        status: 422,
+        error: 'Email is already in use. Please login instead.',
+      });
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
@@ -27,7 +30,7 @@ export const POST = async (req: Request) => {
       },
     });
 
-    return NextResponse.json({ user });
+    return NextResponse.json({ user, status: 200 });
   } catch (err: any) {
     console.log((err as Error).message);
     return new NextResponse('Internal Error', { status: 500 });

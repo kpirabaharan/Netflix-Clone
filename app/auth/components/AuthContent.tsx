@@ -1,19 +1,16 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+import { toast } from 'react-hot-toast';
 
 import { postData } from '@/lib/helpers';
 
 import Input from '@/components/Input';
-import { error } from 'console';
-import { stat } from 'fs';
 
 const AuthContent = () => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [isError, setIsError] = useState(false);
 
   const [variant, setVariant] = useState('login');
 
@@ -34,11 +31,9 @@ const AuthContent = () => {
     console.log({ user, status, error });
 
     if (status !== 200) {
-      setIsError(true);
-      setErrorMessage(error);
+      if (status === 422) toast.error(error);
     } else {
-      setIsError(false);
-      setErrorMessage('');
+      toast.success('Successfully Registered')
       setVariant('login');
     }
   };
@@ -75,11 +70,6 @@ const AuthContent = () => {
             label='Password'
             onChange={(event: any) => setPassword(event.target.value)}
           />
-          {isError ? (
-            <p className='font-bold text-sm text-red-800'>{errorMessage}</p>
-          ) : (
-            <></>
-          )}
         </div>
         <button
           onClick={register}

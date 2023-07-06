@@ -1,3 +1,4 @@
+import { NextResponse } from 'next/server';
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
@@ -31,30 +32,44 @@ export const authOptions: NextAuthOptions = {
         },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          throw new Error('Email and password required');
+        try {
+          if (!credentials?.email || !credentials?.password) {
+            throw NextResponse.json({
+              message: 'Email and password required',
+              status: 401,
+            });
+          }
+
+          const user = await prisma.user.findUnique({
+            where: {
+              email: credentials.email,
+            },
+          });
+
+          if (!user || !user.hashedPassword) {
+            throw NextResponse.json({
+              message: 'Email does not exist',
+              status: 401,
+            });
+          }
+
+          const isCorrectPassword = await compare(
+            credentials.password,
+            user.hashedPassword,
+          );
+
+          if (!isCorrectPassword) {
+            throw NextResponse.json({
+              message: 'Incorrect password',
+              status: 401,
+            });
+          }
+
+          return user;
+        } catch (err) {
+          console.log(err);
+          throw err;
         }
-
-        const user = await prisma.user.findUnique({
-          where: {
-            email: credentials.email,
-          },
-        });
-
-        if (!user || !user.hashedPassword) {
-          throw new Error('Email does not exist');
-        }
-
-        const isCorrectPassword = await compare(
-          credentials.password,
-          user.hashedPassword,
-        );
-
-        if (!isCorrectPassword) {
-          throw new Error('Incorrect password');
-        }
-
-        return user;
       },
     }),
   ],

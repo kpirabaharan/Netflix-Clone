@@ -27,9 +27,8 @@ const AuthContent = () => {
   }, []);
 
   const login = async () => {
-    console.log('Signing In');
     try {
-      const user = await signIn('credentials', {
+      const response = await signIn('credentials', {
         email,
         password,
         redirect: false,
@@ -55,7 +54,7 @@ const AuthContent = () => {
       if (status === 422) toast.error(error);
     } else {
       toast.success('Successfully Registered');
-      setVariant('login');
+      login();
     }
     setIsLoading(false);
   };
@@ -98,7 +97,7 @@ const AuthContent = () => {
           disabled={isLoading}
           onClick={variant === 'login' ? login : register}
           className='bg-red-700 py-3 text-white rounded-md w-full mt-8 
-        hover:bg-opacity-80 transition'
+          hover:bg-opacity-80 transition'
         >
           {variant === 'login' ? 'Sign In' : 'Sign Up'}
         </button>
@@ -106,16 +105,16 @@ const AuthContent = () => {
         <div className='flex flex-col gap-y-4 mt-8'>
           <div
             onClick={() => signIn('google', { callbackUrl: '/' })}
-            className='flex flex-row gap-x-4 pl-4 bg-neutral-200 hover:bg-opacity-80 rounded-md py-2 
-            items-center cursor-pointer'
+            className={`flex flex-row gap-x-4 pl-4 bg-neutral-200 hover:bg-opacity-80 rounded-md py-2 
+            items-center ${isLoading ? 'cursor-progress' : 'cursor-pointer'}`}
           >
             <FcGoogle size={30} />
             <p className='font-semibold'>Continue with Google</p>
           </div>
           <div
             onClick={() => signIn('github', { callbackUrl: '/' })}
-            className='flex flex-row gap-x-4 pl-4 bg-neutral-200 hover:bg-opacity-80 rounded-md py-2
-            items-center cursor-pointer'
+            className={`flex flex-row gap-x-4 pl-4 bg-neutral-200 hover:bg-opacity-80 rounded-md py-2 
+            items-center ${isLoading ? 'cursor-progress' : 'cursor-pointer'}`}
           >
             <FaGithub size={30} />
             <p className='font-semibold'>Continue with Github</p>

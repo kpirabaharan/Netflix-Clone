@@ -12,7 +12,7 @@ import { postData } from '@/lib/helpers';
 import Input from '@/components/Input';
 
 const AuthContent = () => {
-  const router = useRouter();
+  // const router = useRouter();
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -31,11 +31,8 @@ const AuthContent = () => {
       const response = await signIn('credentials', {
         email,
         password,
-        redirect: false,
-        callbackUrl: '/',
+        callbackUrl: '/profiles',
       });
-
-      router.push('/');
     } catch (err) {
       console.log((err as Error).message);
     }
@@ -104,7 +101,7 @@ const AuthContent = () => {
 
         <div className='flex flex-col gap-y-4 mt-8'>
           <div
-            onClick={() => signIn('google', { callbackUrl: '/' })}
+            onClick={() => signIn('google', { callbackUrl: '/profiles' })}
             className={`flex flex-row gap-x-4 pl-4 bg-neutral-200 hover:bg-opacity-80 rounded-md py-2 
             items-center ${isLoading ? 'cursor-progress' : 'cursor-pointer'}`}
           >
@@ -112,7 +109,7 @@ const AuthContent = () => {
             <p className='font-semibold'>Continue with Google</p>
           </div>
           <div
-            onClick={() => signIn('github', { callbackUrl: '/' })}
+            onClick={() => signIn('github', { callbackUrl: '/profiles' })}
             className={`flex flex-row gap-x-4 pl-4 bg-neutral-200 hover:bg-opacity-80 rounded-md py-2 
             items-center ${isLoading ? 'cursor-progress' : 'cursor-pointer'}`}
           >

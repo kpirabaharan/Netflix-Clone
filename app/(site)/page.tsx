@@ -1,21 +1,24 @@
-'use client';
-
+import { getServerSession } from 'next-auth/next';
 import { redirect } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+
+import { authOptions } from '@/lib/auth';
 
 import Navbar from '@/components/Navbar';
+import Billboard from '@/components/Billboard';
 
-export default function Home() {
-  const session = useSession({
-    required: true,
-    onUnauthenticated() {
-      redirect('/auth');
-    },
-  });
+const HomePage = async () => {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    redirect('/auth');
+  }
 
   return (
-    <div className='h-[120vh]'>
+    <div>
       <Navbar />
+      <Billboard />
     </div>
   );
-}
+};
+
+export default HomePage;

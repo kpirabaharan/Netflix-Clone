@@ -20,7 +20,7 @@ const Avatar = ({ name }: AvatarProps) => {
                 group-hover:border-white overflow-hidden'
       >
         <Image
-          src={'/images/avatar-blue.png'}
+          src={'/images/avatar-slate.png'}
           alt='Profile'
           height={500}
           width={500}

@@ -15,7 +15,7 @@ const AuthPage = () => {
             width={175}
             className='object-cover'
             src='/images/logo.png'
-            alt='Logo'
+            alt='logo'
           />
         </nav>
         <AuthContent />

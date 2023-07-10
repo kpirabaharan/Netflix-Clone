@@ -1,4 +1,13 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  // images: {
+  //   domains: [
+  //     'upload.wikimedia.org',
+  //     'uhdtv.io',
+  //     'download.blender.org',
+  //     'mango.blender.org',
+  //   ],
+  // },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

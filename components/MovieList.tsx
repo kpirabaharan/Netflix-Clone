@@ -2,15 +2,18 @@
 
 import { isEmpty } from 'lodash';
 
-import useMovieList from '@/hooks/useMovieList';
 import { Movie } from '@/types';
+import useMovieList from '@/hooks/useMovieList';
+
+import MovieCard from './MovieCard';
 
 interface MovieListProps {
   title: string;
-  movies: Movie[] | undefined;
 }
 
-const MovieList = ({ title, movies }: MovieListProps) => {
+const MovieList = ({ title }: MovieListProps) => {
+  const { movies }: { movies: Movie[] } = useMovieList();
+
   if (isEmpty(movies)) {
     return null;
   }
@@ -22,12 +25,9 @@ const MovieList = ({ title, movies }: MovieListProps) => {
           {title}
         </p>
         <div className='grid grid-cols-4 gap-2'>
-          {Array.isArray(movies)
-            ? movies.map((movie) => {
-                console.log(movie.id);
-                return <div key={movie.id}>Movie</div>;
-              })
-            : ''}
+          {movies.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
         </div>
       </div>
     </div>

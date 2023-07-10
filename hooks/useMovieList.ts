@@ -9,7 +9,7 @@ const useMovieList = () => {
     revalidateOnReconnect: false,
   });
 
-  return { data, error, isLoading };
+  return { movies: data?.movies, error, isLoading };
 };
 
 export default useMovieList;

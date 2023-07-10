@@ -12,7 +12,7 @@ const Billboard = () => {
     <div className='group relative h-[56.25vw]'>
       <video
         className='w-full h-[56.25vw] object-cove transition duration-500
-        brightness-75 group-hover:brightness-50'
+        brightness-75 group-hover:brightness-50 bg-black'
         autoPlay
         muted
         loop

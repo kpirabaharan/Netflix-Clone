@@ -7,16 +7,13 @@ import { Movie } from '@/types';
 
 interface MovieListProps {
   title: string;
+  movies: Movie[] | undefined;
 }
 
-const MovieList = ({ title }: MovieListProps) => {
-  const { data: movies = [] }: { data: Record<string, any> } = useMovieList();
-
+const MovieList = ({ title, movies }: MovieListProps) => {
   if (isEmpty(movies)) {
     return null;
   }
-
-  console.log(movies);
 
   return (
     <div className='px-4 md:px-12 mt-4 space-y-8'>
@@ -26,7 +23,10 @@ const MovieList = ({ title }: MovieListProps) => {
         </p>
         <div className='grid grid-cols-4 gap-2'>
           {Array.isArray(movies)
-            ? movies.map((movie: Movie) => <div key={movie.id}>Movie</div>)
+            ? movies.map((movie) => {
+                console.log(movie.id);
+                return <div key={movie.id}>Movie</div>;
+              })
             : ''}
         </div>
       </div>

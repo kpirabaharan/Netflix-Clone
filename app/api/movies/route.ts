@@ -5,7 +5,7 @@ import serverAuth from '@/lib/serverAuth';
 
 export const GET = async (req: Request) => {
   try {
-    await serverAuth();
+    // await serverAuth();
 
     const movies = await prisma.movie.findMany();
 

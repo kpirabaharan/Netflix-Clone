@@ -8,12 +8,11 @@ import useMovieList from '@/hooks/useMovieList';
 import MovieCard from './MovieCard';
 
 interface MovieListProps {
+  movies: Movie[];
   title: string;
 }
 
-const MovieList = ({ title }: MovieListProps) => {
-  const { movies }: { movies: Movie[] } = useMovieList();
-
+const MovieList = ({ title, movies }: MovieListProps) => {
   if (isEmpty(movies)) {
     return null;
   }

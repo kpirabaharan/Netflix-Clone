@@ -9,7 +9,7 @@ export const GET = async (req: Request) => {
 
     const movies = await prisma.movie.findMany();
 
-    return NextResponse.json({ movies, status: 200 });
+    return NextResponse.json(movies, { status: 200 });
   } catch (err) {
     console.log(err);
     return new NextResponse('Internal error', { status: 500 });

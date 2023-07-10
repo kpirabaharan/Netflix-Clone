@@ -5,6 +5,8 @@ import { BsFillPlayFill } from 'react-icons/bs';
 
 import { Movie } from '@/types';
 
+import FavoriteButton from './FavoriteButton';
+
 interface MovieCardProps {
   movie: Movie;
 }
@@ -40,10 +42,21 @@ const MovieCard = ({ movie }: MovieCardProps) => {
             >
               <BsFillPlayFill size={30} />
             </div>
+            <FavoriteButton movieId={movie.id} />
           </div>
           <p className='text-green-400 font-semibold mt-4'>
             New <span className='text-white'>2023</span>
           </p>
+
+          <div className='flex flex-row mt-4 gap-2 items-center'>
+            <p className='text-white text-[10px] lg:text-sm'>
+              {movie.duration}
+            </p>
+          </div>
+
+          <div className='flex flex-row mt-4 gap-2 items-center'>
+            <p className='text-white text-[10px] lg:text-sm'>{movie.genre}</p>
+          </div>
         </div>
       </div>
     </div>

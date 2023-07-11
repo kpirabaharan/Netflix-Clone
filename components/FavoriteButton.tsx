@@ -5,6 +5,7 @@ import { useCallback, useMemo } from 'react';
 import { AiOutlinePlus, AiOutlineCheck } from 'react-icons/ai';
 import { toast } from 'react-hot-toast';
 
+import useMediaQuery from '@/hooks/useMediaQuery';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import useFavorites from '@/hooks/useFavorites';
 
@@ -13,6 +14,8 @@ interface FavoriteButtonProps {
 }
 
 const FavoriteButton = ({ movieId }: FavoriteButtonProps) => {
+  const isMediumScreens = useMediaQuery('(max-width: 1023px)');
+
   const { mutate: mutateFavorites } = useFavorites();
   const { user: currentUser, mutate } = useCurrentUser();
 
@@ -48,14 +51,14 @@ const FavoriteButton = ({ movieId }: FavoriteButtonProps) => {
 
   return (
     <div
-      className='cursor-pointer group/item w-6 h-6 lg:w-10 lg:h-10 rounded-full 
+      className='cursor-pointer group/item w-8 h-8 lg:w-10 lg:h-10 rounded-full 
       border-2 flex justify-center items-center transition border-neutral-400
        hover:border-white'
       onClick={toggleFavorite}
     >
       <Icon
         className='text-neutral-400 transition group-hover/item:text-white'
-        size={25}
+        size={isMediumScreens ? 20 : 25}
       />
     </div>
   );

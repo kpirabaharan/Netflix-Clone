@@ -9,8 +9,6 @@ const useFavorites = () => {
     revalidateOnReconnect: false,
   });
 
-  console.log(data);
-
   return { favorites: data, error, isLoading, mutate };
 };
 

@@ -3,6 +3,7 @@
 import axios from 'axios';
 import { useCallback, useMemo } from 'react';
 import { AiOutlinePlus, AiOutlineCheck } from 'react-icons/ai';
+import { toast } from 'react-hot-toast';
 
 import useCurrentUser from '@/hooks/useCurrentUser';
 import useFavorites from '@/hooks/useFavorites';
@@ -24,22 +25,23 @@ const FavoriteButton = ({ movieId }: FavoriteButtonProps) => {
   const toggleFavorite = useCallback(async () => {
     let response;
 
-    console.log({ isFavorite, movieId });
-
     if (isFavorite) {
-      response = await axios.delete('/api/favorite', { data: movieId });
+      response = await axios.delete('/api/favorite', { data: { movieId } });
     } else {
       response = await axios.post('/api/favorite', { movieId });
     }
 
-    const updatedFavoriteIds = response?.data?.favoriteIds;
+    if (response.status === 200) {
+      if (!isFavorite) toast.success('Added to Favorites', { id: 'Favorite' });
+      const updatedFavoriteIds = response?.data?.favoriteIds;
 
-    mutate({
-      ...currentUser,
-      favoriteIds: updatedFavoriteIds,
-    });
+      mutate({
+        ...currentUser,
+        favoriteIds: updatedFavoriteIds,
+      });
 
-    mutateFavorites();
+      mutateFavorites();
+    }
   }, [movieId, isFavorite, currentUser, mutate, mutateFavorites]);
 
   const Icon = isFavorite ? AiOutlineCheck : AiOutlinePlus;

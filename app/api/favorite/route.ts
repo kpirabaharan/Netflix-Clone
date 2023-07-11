@@ -34,28 +34,26 @@ export const DELETE = async (req: Request) => {
   try {
     const { currentUser } = await serverAuth();
 
-    const request = await req.json();
+    const { movieId } = await req.json();
 
-    console.log(request);
+    const existingMovie = await prisma.movie.findUnique({
+      where: { id: movieId },
+    });
 
-    // const existingMovie = await prisma.movie.findUnique({
-    //   where: { id: movieId },
-    // });
+    if (!existingMovie) {
+      throw new Error('Invalid ID');
+    }
 
-    // if (!existingMovie) {
-    //   throw new Error('Invalid ID');
-    // }
+    const updatedFavoriteIds = without(currentUser.favoriteIds, movieId);
 
-    // const updatedFavoriteIds = without(currentUser.favoriteIds, movieId);
+    const updatedUser = await prisma.user.update({
+      where: {
+        email: currentUser.email || '',
+      },
+      data: { favoriteIds: updatedFavoriteIds },
+    });
 
-    // const updatedUser = await prisma.user.update({
-    //   where: {
-    //     email: currentUser.email || '',
-    //   },
-    //   data: { favoriteIds: updatedFavoriteIds },
-    // });
-
-    // return NextResponse.json(updatedUser, { status: 200 });
+    return NextResponse.json(updatedUser, { status: 200 });
   } catch (err) {
     console.log(err);
     return new NextResponse('Internal error', { status: 500 });

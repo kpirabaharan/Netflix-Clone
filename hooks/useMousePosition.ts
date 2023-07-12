@@ -33,6 +33,7 @@ const useMousePosition = () => {
     return () => {
       window.removeEventListener('mousemove', updateMousePosition);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return mouseMoving;
 };

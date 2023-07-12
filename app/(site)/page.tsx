@@ -27,7 +27,7 @@ const HomePage = () => {
       <Navbar />
       <Billboard />
       <div className='pb-40'>
-        <MovieList title='Tending Now' movies={movies} />
+        <MovieList title='Trending Now' movies={movies} />
         <MovieList title='My List' movies={favorites} />
       </div>
     </div>

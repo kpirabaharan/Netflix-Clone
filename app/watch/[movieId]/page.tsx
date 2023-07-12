@@ -1,5 +1,7 @@
 'use client';
 
+import { useRef, useState, useEffect } from 'react';
+import ReactPlayer from 'react-player';
 import { useParams, useRouter } from 'next/navigation';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 
@@ -9,6 +11,8 @@ import useMovie from '@/hooks/useMovie';
 
 const Watch = () => {
   const { movieId } = useParams();
+  const [isPlaying, setIsPlaying] = useState(false);
+  const playerRef = useRef<ReactPlayer>(null);
   const router = useRouter();
   const mouseMoving = useMousePosition();
 
@@ -22,8 +26,14 @@ const Watch = () => {
     <div className='h-screen w-screen bg-black group'>
       <nav
         className={`fixed w-full p-4 z-10 flex flex-row items-center gap-8 
-        bg-black bg-opacity-70 transition duration-300 ease-in 
-        ${mouseMoving ? 'opacity-100' : 'opacity-0'}`}
+        bg-black bg-opacity-70 transition duration-300 ease-in hover:opacity-100
+        ${
+          isPlaying
+            ? mouseMoving
+              ? 'opacity-100'
+              : 'opacity-0'
+            : 'opacity-100'
+        }`}
       >
         <AiOutlineArrowLeft
           className='text-white cursor-pointer'
@@ -35,7 +45,20 @@ const Watch = () => {
           {movie.title}
         </p>
       </nav>
-      <video src={movie.videoUrl} className='h-full w-full' autoPlay controls />
+      <ReactPlayer
+        className='react-player'
+        ref={playerRef}
+        url={movie.videoUrl}
+        height={'100%'}
+        width={'100%'}
+        playing={true}
+        controls={true}
+        onReady={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+        onPlay={() => {
+          setIsPlaying(true);
+        }}
+      />
     </div>
   );
 };

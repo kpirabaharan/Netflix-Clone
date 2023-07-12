@@ -1,16 +1,23 @@
 'use client';
 
 import { AiOutlineInfoCircle } from 'react-icons/ai';
-import { BsFillPlayFill } from 'react-icons/bs';
 
 import useMediaQuery from '@/hooks/useMediaQuery';
 import useBillboard from '@/hooks/useBillboard';
+import useMovie from '@/hooks/useMovie';
 import { Movie } from '@/types';
+
+import PlayButton from './PlayButton';
 
 const Billboard = () => {
   const isMediumScreens = useMediaQuery('(max-width: 1023px)');
 
   const { video }: { video: Movie } = useBillboard();
+
+  const GetMovie = (id: string) => {
+    console.log('run');
+    const { movie } = useMovie(id);
+  };
 
   return (
     <div className='group relative h-[56.25vw]'>
@@ -38,18 +45,7 @@ const Billboard = () => {
           {video?.description}
         </p>
         <div className='flex flex-row items-center mt-3 md:mt-4 gap-3'>
-          <button
-            className='bg-white text-black rounded-md 
-            py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold 
-            flex flex-row items-center justify-center hover:bg-opacity-70 
-            transition lg:w-[150px]'
-          >
-            <BsFillPlayFill
-              className='mr-1 text-lg'
-              size={isMediumScreens ? 20 : 30}
-            />
-            Play
-          </button>
+          <PlayButton movieId={video?.id} />
           <button
             className='bg-white text-white bg-opacity-30 rounded-md 
             py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold 

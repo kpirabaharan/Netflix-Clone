@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { BsFillPlayFill } from 'react-icons/bs';
 
 import { Movie } from '@/types';
-
 import useMediaQuery from '@/hooks/useMediaQuery';
 
 import FavoriteButton from './FavoriteButton';
@@ -15,6 +15,7 @@ interface MovieCardProps {
 
 const MovieCard = ({ movie }: MovieCardProps) => {
   const isMediumScreens = useMediaQuery('(max-width: 1023px)');
+  const router = useRouter();
 
   return (
     <div className='group bg-zinc-900 col-span relative h-[12vw] xl:h-[8vw]'>
@@ -40,7 +41,7 @@ const MovieCard = ({ movie }: MovieCardProps) => {
         <div className='z-10 bg-zinc-800 p-2 lg:p-4 absolute w-full transition shadow-md rounded-b-md'>
           <div className='flex flex-row items-center justify-start gap-2 lg:gap-3'>
             <div
-              onClick={() => {}}
+              onClick={() => router.push(`/watch/${movie.id}`)}
               className='cursor-pointer w-8 h-8 lg:w-10 lg:h-10 bg-white rounded-full
               flex justify-center items-center transition hover:bg-neutral-300'
             >

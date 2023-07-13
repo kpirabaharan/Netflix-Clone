@@ -52,12 +52,12 @@ const FavoriteButton = ({ movieId }: FavoriteButtonProps) => {
   return (
     <div
       className='cursor-pointer group/item w-8 h-8 lg:w-10 lg:h-10 rounded-full 
-      border-2 flex justify-center items-center transition border-neutral-400
-       hover:border-white'
+      border-2 flex justify-center items-center transition hover:border-opacity-70
+       border-white'
       onClick={toggleFavorite}
     >
       <Icon
-        className='text-neutral-400 transition group-hover/item:text-white'
+        className='group-hover/item:opacity-70 transition text-white'
         size={isMediumScreens ? 20 : 25}
       />
     </div>

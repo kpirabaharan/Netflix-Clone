@@ -1,10 +1,9 @@
-import { NextApiRequest } from 'next';
 import { NextResponse } from 'next/server';
 
 import prisma from '@/lib/prismadb';
 import serverAuth from '@/lib/serverAuth';
 
-export const GET = async (req: NextApiRequest) => {
+export const GET = async (req: Request) => {
   try {
     const { currentUser } = await serverAuth();
 

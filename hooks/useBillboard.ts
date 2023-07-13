@@ -9,7 +9,7 @@ const useBillboard = () => {
     revalidateOnReconnect: false,
   });
 
-  return { video: data?.randomMovie, error, isLoading };
+  return { movie: data?.randomMovie, error, isLoading };
 };
 
 export default useBillboard;

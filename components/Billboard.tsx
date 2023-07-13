@@ -56,7 +56,7 @@ const Billboard = () => {
           >
             <AiOutlineInfoCircle
               className='mr-1'
-              size={isMediumScreens ? 20 : 30}
+              size={isMediumScreens ? 20 : 25}
             />
             More Info
           </button>

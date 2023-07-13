@@ -20,11 +20,11 @@ const MovieCard = ({ movie }: MovieCardProps) => {
   const { onOpen } = useInfoModal();
 
   return (
-    <div className='group bg-zinc-900 col-span relative h-[12vw] 2xl:h-[8vw]'>
+    <div className='group bg-zinc-900 col-span relative h-[24vw] sm:h-[18vw] lg:h-[13vw] xl:h-[9vw]'>
       <img
         className='object-cover transition duration shadow-xl rounded-md 
-        group-hover:opacity-90 sm:group-hover:opacity-0 delay-300 h-[12vw] 2xl:h-[8vw] w-full
-        cursor-pointer'
+        group-hover:opacity-90 sm:group-hover:opacity-0 delay-300 w-full cursor-pointer
+        h-[24vw] sm:h-[18vw] lg:h-[13vw] xl:h-[9vw]'
         src={movie.thumbnailUrl}
         alt='Thumbnail'
       />

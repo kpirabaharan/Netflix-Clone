@@ -2,12 +2,13 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { BsFillPlayFill } from 'react-icons/bs';
+import { BsFillPlayFill, BsChevronDown } from 'react-icons/bs';
 
 import { Movie } from '@/types';
 import useMediaQuery from '@/hooks/useMediaQuery';
 
 import FavoriteButton from './FavoriteButton';
+import useInfoModal from '@/hooks/useInfoModal';
 
 interface MovieCardProps {
   movie: Movie;
@@ -16,12 +17,13 @@ interface MovieCardProps {
 const MovieCard = ({ movie }: MovieCardProps) => {
   const isMediumScreens = useMediaQuery('(max-width: 1023px)');
   const router = useRouter();
+  const { onOpen } = useInfoModal();
 
   return (
-    <div className='group bg-zinc-900 col-span relative h-[12vw] xl:h-[8vw]'>
+    <div className='group bg-zinc-900 col-span relative h-[12vw] 2xl:h-[8vw]'>
       <img
         className='object-cover transition duration shadow-xl rounded-md 
-        group-hover:opacity-90 sm:group-hover:opacity-0 delay-300 h-[12vw] xl:h-[8vw] w-full
+        group-hover:opacity-90 sm:group-hover:opacity-0 delay-300 h-[12vw] 2xl:h-[8vw] w-full
         cursor-pointer'
         src={movie.thumbnailUrl}
         alt='Thumbnail'
@@ -34,7 +36,7 @@ const MovieCard = ({ movie }: MovieCardProps) => {
       >
         <img
           className='cursor-pointer object-hover transition duration shadow-xl 
-          rounded-t-md w-full h-[12vw] xl:h-[8vw]'
+          rounded-t-md w-full h-[12vw] 2xl:h-[8vw]'
           src={movie.thumbnailUrl}
           alt='Thumbnail'
         />
@@ -48,6 +50,17 @@ const MovieCard = ({ movie }: MovieCardProps) => {
               <BsFillPlayFill size={isMediumScreens ? 25 : 30} />
             </div>
             <FavoriteButton movieId={movie.id} />
+            <div
+              onClick={() => onOpen(movie.id)}
+              className='cursor-pointer ml-auto group/item w-8 h-8 lg:w-10 lg:h-10 
+              border-2 rounded-full flex justify-center items-center 
+              transition hover:border-opacity-70 border-white'
+            >
+              <BsChevronDown
+                size={isMediumScreens ? 20 : 25}
+                className='group-hover/item:opacity-70 text-white'
+              />
+            </div>
           </div>
           <p className='text-green-400 font-semibold mt-4'>
             New <span className='text-white'>2023</span>

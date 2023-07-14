@@ -4,6 +4,8 @@ import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { BsChevronDown, BsSearch, BsBell } from 'react-icons/bs';
 
+import useMediaQuery from '@/hooks/useMediaQuery';
+
 import NavbarItem from '@/components/NavbarItem';
 import MobileMenu from '@/components/MobileMenu';
 import AccountMenu from '@/components/AccountMenu';
@@ -11,6 +13,7 @@ import AccountMenu from '@/components/AccountMenu';
 const TOP_OFFSET = 66;
 
 const Navbar = () => {
+  const isSmallScreens = useMediaQuery('(max-width: 767px)');
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
@@ -45,14 +48,25 @@ const Navbar = () => {
         className={`px-4 md:px-10 py-6 flex flex-row items-center transition 
         duration-500 ${showBackground ? 'bg-zinc-900/90' : ''}`}
       >
-        <Image
-          className='object-contain w-[50px] md:w-[100px]'
-          src={'/images/logo.png'}
-          alt='logo'
-          height={100}
-          width={100}
-          quality={100}
-        />
+        {isSmallScreens ? (
+          <Image
+            className='object-contain h-10'
+            src={'/images/logo-letter.png'}
+            alt='logo'
+            height={50}
+            width={50}
+            quality={100}
+          />
+        ) : (
+          <Image
+            className='object-contain w-[50px] md:w-[100px]'
+            src={'/images/logo.png'}
+            alt='logo'
+            height={100}
+            width={100}
+            quality={100}
+          />
+        )}
 
         <div className='lg:flex hidden flex-row ml-8 gap-7'>
           <NavbarItem label='Home' />

@@ -23,14 +23,17 @@ const Billboard = () => {
   return (
     <div className='group relative h-[56.25vw] max-h-[80vh]'>
       <video
-        className='w-full h-[56.25vw] object-cover transition duration-500
-        brightness-75 max-h-[80vh]'
+        className='w-full h-[56.25vw] object-cover brightness-75 max-h-[80vh] '
         autoPlay
         muted
         loop
         poster={movie.thumbnailUrl}
         src={movie.videoUrl}
       ></video>
+
+      {/* Inner Shadow for Video */}
+      <div className='absolute w-full h-full top-0 left-0 shadow-inner-upper' />
+      <div className='absolute w-full h-full top-0 left-0 shadow-inner-lower' />
 
       {/* Mobile to Medium Screens */}
       <div

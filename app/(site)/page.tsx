@@ -26,7 +26,7 @@ const HomePage = () => {
     <div>
       <Navbar />
       <Billboard />
-      <div className='pb-40 flex flex-col gap-y-12'>
+      <div className='pb-40 flex flex-col gap-y-12 shadow-inner-upper-2xl pt-4'>
         <MovieList title='Trending Now' movies={movies} />
         <MovieList title='My List' movies={favorites} />
       </div>

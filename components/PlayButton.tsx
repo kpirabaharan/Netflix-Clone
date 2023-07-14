@@ -18,9 +18,9 @@ const PlayButton = ({ movieId }: PlayButtonProps) => {
 
   return (
     <button
-      className='bg-white text-black rounded-md py-1 md:py-2 px-3 md:px-8 
-      w-auto text-xs lg:text-lg font-semibold flex flex-row items-center 
-      justify-center hover:bg-opacity-70 transition lg:w-[150px]'
+      className='bg-[#e50914] text-white rounded-md py-2 px-8 
+      text-xs lg:text-lg font-semibold flex flex-row items-center 
+      justify-center hover:bg-opacity-80 transition duration lg:w-[150px]'
       onClick={() => {
         onClose();
         router.push(`/watch/${movieId}`);

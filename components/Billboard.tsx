@@ -1,14 +1,13 @@
 'use client';
 
-import { AiOutlineInfoCircle } from 'react-icons/ai';
-
 import useMediaQuery from '@/hooks/useMediaQuery';
 import useBillboard from '@/hooks/useBillboard';
 
 import { Movie } from '@/types';
+import useInfoModal from '@/hooks/useInfoModal';
 
 import PlayButton from './PlayButton';
-import useInfoModal from '@/hooks/useInfoModal';
+import MoreInfoButton from './MoreInfoButton';
 
 const Billboard = () => {
   const isMediumScreens = useMediaQuery('(max-width: 1023px)');
@@ -32,10 +31,31 @@ const Billboard = () => {
         poster={movie.thumbnailUrl}
         src={movie.videoUrl}
       ></video>
-      <div className='absolute top-[30%] md:top-[35%] lg:top-[40%] xl:top-[50%] ml-4 md:ml-16'>
+
+      {/* Mobile to Medium Screens */}
+      <div
+        className='absolute flex flex-col gap-y-2 md:gap-y-4 lg:hidden bottom-[5%] left-0 w-full 
+        items-center'
+      >
+        <p className='text-white text-3xl md:text-5xl font-bold'>
+          {movie.title}
+        </p>
+        <div className='flex flex-row gap-x-2'>
+          <PlayButton movieId={movie.id} />
+          <MoreInfoButton movieId={movie.id} onOpen={onOpen} />
+        </div>
+        <div className='flex text-center max-w-[90%] md:max-w-[60%]'>
+          <p className='text-white text-sm md:text-lg line-clamp-2 md:line-clamp-3'>
+            {movie.description}
+          </p>
+        </div>
+      </div>
+
+      {/* Large and Screens */}
+      <div className='absolute hidden lg:inline bottom-[20%] ml-16'>
         <p
           className='text-white text-xl md:text-5xl h-full w-[50%] lg:text-6xl 
-          font-bold drop-shadow-xl transition duration-500 '
+          font-bold drop-shadow-xl transition duration-500'
         >
           {movie.title}
         </p>
@@ -47,19 +67,7 @@ const Billboard = () => {
         </p>
         <div className='flex flex-row items-center mt-3 md:mt-4 gap-3'>
           <PlayButton movieId={movie.id} />
-          <button
-            onClick={() => onOpen(movie.id)}
-            className='bg-white text-white bg-opacity-30 rounded-md 
-            py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold 
-            flex flex-row items-center justify-center hover:bg-opacity-20 
-            transition lg:w-[150px]'
-          >
-            <AiOutlineInfoCircle
-              className='mr-1'
-              size={isMediumScreens ? 20 : 25}
-            />
-            More Info
-          </button>
+          <MoreInfoButton movieId={movie.id} onOpen={onOpen} />
         </div>
       </div>
     </div>

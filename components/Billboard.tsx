@@ -6,7 +6,7 @@ import useBillboard from '@/hooks/useBillboard';
 import { Movie } from '@/types';
 import useInfoModal from '@/hooks/useInfoModal';
 
-import PlayButton from './PlayButton';
+import PlayButton from './Buttons/PlayButton';
 import MoreInfoButton from './MoreInfoButton';
 
 const Billboard = () => {

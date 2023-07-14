@@ -56,11 +56,10 @@ const Navbar = () => {
 
         <div className='lg:flex hidden flex-row ml-8 gap-7'>
           <NavbarItem label='Home' />
-          <NavbarItem label='TV Shows' />
+          <NavbarItem label='TV Series' />
           <NavbarItem label='Movies' />
-          <NavbarItem label='Recently Added' />
+          <NavbarItem label='New & Popular' />
           <NavbarItem label='My List' />
-          <NavbarItem label='Browse' />
         </div>
 
         <div
@@ -68,7 +67,7 @@ const Navbar = () => {
           className='lg:hidden flex flex-row items-center gap-2 ml-8 
           cursor-pointer relative'
         >
-          <p className='text-white text-sm'>Browse</p>
+          <p className='text-white text-sm'>Discover</p>
           <BsChevronDown
             className={`text-white transition ${
               showMobileMenu ? 'rotate-0' : '-rotate-90'

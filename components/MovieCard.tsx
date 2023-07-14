@@ -1,82 +1,67 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { BsFillPlayFill, BsChevronDown } from 'react-icons/bs';
+import { motion } from 'framer-motion';
 
 import { Movie } from '@/types';
-import useMediaQuery from '@/hooks/useMediaQuery';
-
-import FavoriteButton from './FavoriteButton';
 import useInfoModal from '@/hooks/useInfoModal';
+import { slideIn, fadeIn } from '@/utils';
+
+import FavoriteButton from './Buttons/FavoriteButton';
+import PlayIcon from './IconButtons/PlayIcon';
+import MoreIcon from './IconButtons/MoreIcon';
 
 interface MovieCardProps {
   movie: Movie;
 }
 
 const MovieCard = ({ movie }: MovieCardProps) => {
-  const isMediumScreens = useMediaQuery('(max-width: 1023px)');
-  const router = useRouter();
   const { onOpen } = useInfoModal();
 
   return (
-    <div className='group bg-zinc-900 col-span relative h-[24vw] sm:h-[18vw] lg:h-[13vw] xl:h-[9vw]'>
+    <div
+      className='group bg-zinc-900 col-span relative h-[24vw] sm:h-[18vw] 
+      lg:h-[13vw] xl:h-[9vw] hover:scale-125 hover:z-50 transition duration-300'
+    >
       <img
         className='object-cover transition duration shadow-xl rounded-md 
-        group-hover:opacity-90 sm:group-hover:opacity-0 delay-300 w-full cursor-pointer
-        h-[24vw] sm:h-[18vw] lg:h-[13vw] xl:h-[9vw]'
+        group-hover:opacity-90 delay-300 w-full cursor-pointer h-full'
         src={movie.thumbnailUrl}
         alt='Thumbnail'
       />
-      <div
-        className='opacity-0 absolute top-0 transition duration-200 z-10 
-        invisible sm:visible w-full scale-0 group-hover:scale-110 
-        group-hover:-translate-y-[6vw] group-hover:translate-x-[2vw] 
-        group-hover:opacity-100 '
+
+      <motion.div
+        variants={slideIn('up', 'tween', 0.5, 2)}
+        className='absolute top-0 left-0 h-full w-full bg-gray-600/30 rounded-md
+          opacity-0 hover:opacity-100 transition duration-300'
       >
-        <img
-          className='cursor-pointer object-hover transition duration shadow-xl 
-          rounded-t-md w-full h-[12vw] 2xl:h-[8vw]'
-          src={movie.thumbnailUrl}
-          alt='Thumbnail'
-        />
-        <div className='z-10 bg-zinc-800 p-2 lg:p-4 absolute w-full transition shadow-md rounded-b-md'>
-          <div className='flex flex-row items-center justify-start gap-2 lg:gap-3'>
-            <div
-              onClick={() => router.push(`/watch/${movie.id}`)}
-              className='cursor-pointer w-8 h-8 lg:w-10 lg:h-10 bg-white rounded-full
-              flex justify-center items-center transition hover:bg-neutral-300'
-            >
-              <BsFillPlayFill size={isMediumScreens ? 25 : 30} />
-            </div>
+        <div className='flex flex-col justify-end px-2 pb-2 h-full w-full'>
+          <div className='flex flex-row items-center justify-start gap-x-2 lg:gap-3'>
+            <PlayIcon movieId={movie.id} />
             <FavoriteButton movieId={movie.id} />
-            <div
-              onClick={() => onOpen(movie.id)}
-              className='cursor-pointer ml-auto group/item w-8 h-8 lg:w-10 lg:h-10 
-              border-2 rounded-full flex justify-center items-center 
-              transition hover:border-opacity-70 border-white'
-            >
-              <BsChevronDown
-                size={isMediumScreens ? 20 : 25}
-                className='group-hover/item:opacity-70 text-white'
-              />
-            </div>
+            <MoreIcon movieId={movie.id} onOpen={onOpen} />
           </div>
-          <p className='text-green-400 font-semibold mt-4'>
-            New <span className='text-white'>2023</span>
+          <p className='text-white text-lg font-bold truncate'>{movie.title}</p>
+          <p className='text-white text-xs font-semibold truncate'>
+            {movie.genre}
           </p>
-
-          <div className='flex flex-row mt-4 gap-2 items-center'>
-            <p className='text-white text-[10px] lg:text-sm'>
-              {movie.duration}
-            </p>
-          </div>
-
-          <div className='flex flex-row mt-4 gap-2 items-center'>
-            <p className='text-white text-[10px] lg:text-sm'>{movie.genre}</p>
-          </div>
         </div>
-      </div>
+      </motion.div>
+
+      {/* <div className='z-10 bg-zinc-800 p-2 lg:p-4 absolute w-full transition shadow-md rounded-b-md'>
+        
+        <p className='text-green-400 font-semibold mt-4'>
+          New <span className='text-white'>2023</span>
+        </p>
+
+        <div className='flex flex-row mt-4 gap-2 items-center'>
+          <p className='text-white text-[10px] lg:text-sm'>{movie.duration}</p>
+        </div>
+
+        <div className='flex flex-row mt-4 gap-2 items-center'>
+          <p className='text-white text-[10px] lg:text-sm'>{movie.genre}</p>
+        </div>
+      </div> */}
     </div>
   );
 };

@@ -1,11 +1,4 @@
-interface VariantProps {
-  delay: number;
-  direction: string;
-  type: string;
-  duration: number;
-}
-
-export const textVariant = ({ delay }: VariantProps) => {
+export const textVariant = (delay: number) => {
   return {
     hidden: {
       y: -50,
@@ -23,7 +16,12 @@ export const textVariant = ({ delay }: VariantProps) => {
   };
 };
 
-export const fadeIn = ({ direction, type, delay, duration }: VariantProps) => {
+export const fadeIn = (
+  direction: string,
+  type: string,
+  delay: number,
+  duration: number,
+) => {
   return {
     hidden: {
       x: direction === 'left' ? 100 : direction === 'right' ? -100 : 0,
@@ -44,7 +42,7 @@ export const fadeIn = ({ direction, type, delay, duration }: VariantProps) => {
   };
 };
 
-export const zoomIn = ({ delay, duration }: VariantProps) => {
+export const zoomIn = (delay: number, duration: number) => {
   return {
     hidden: {
       scale: 0,
@@ -63,7 +61,12 @@ export const zoomIn = ({ delay, duration }: VariantProps) => {
   };
 };
 
-export const slideIn = ({ direction, type, delay, duration }: VariantProps) => {
+export const slideIn = (
+  direction: string,
+  type: string,
+  delay: number,
+  duration: number,
+) => {
   return {
     hidden: {
       x: direction === 'left' ? '-100%' : direction === 'right' ? '100%' : 0,

@@ -1,12 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 import { Movie } from '@/types';
 import useInfoModal from '@/hooks/useInfoModal';
-import useMediaQuery from '@/hooks/useMediaQuery';
 
 import FavoriteButton from './Buttons/FavoriteButton';
 import PlayIcon from './IconButtons/PlayIcon';
@@ -17,7 +16,6 @@ interface MovieCardProps {
 }
 
 const MovieCard = ({ movie }: MovieCardProps) => {
-  const isXSScreens = useMediaQuery('(max-width: 639px)');
   const [isHovered, setIsHovered] = useState(false);
 
   const { onOpen } = useInfoModal();
@@ -36,8 +34,6 @@ const MovieCard = ({ movie }: MovieCardProps) => {
 
   return (
     <div
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
       onClick={() => onOpen(movie.id)}
       className='group col-span relative h-[25vw] md:h-[18vw] lg:h-[13vw] 2xl:h-[9vw] 
       sm:hover:scale-125 hover:z-20 transition duration-300 cursor-pointer'
@@ -51,10 +47,13 @@ const MovieCard = ({ movie }: MovieCardProps) => {
 
       {/* Hover Div */}
       <div
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         className='hidden sm:flex flex-col justify-end px-2 pb-2 h-full w-full
         absolute top-0 left-0 rounded-md'
       >
         <motion.div
+          initial='closed'
           animate={animate}
           variants={variants}
           transition={transition}
@@ -65,6 +64,7 @@ const MovieCard = ({ movie }: MovieCardProps) => {
           <MoreIcon movieId={movie.id} onOpen={onOpen} />
         </motion.div>
         <motion.p
+          initial='closed'
           animate={animate}
           variants={variants}
           transition={transition}
@@ -73,6 +73,7 @@ const MovieCard = ({ movie }: MovieCardProps) => {
           {movie.title}
         </motion.p>
         <motion.p
+          initial='closed'
           animate={animate}
           variants={variants}
           transition={transition}

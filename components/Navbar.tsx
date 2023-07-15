@@ -14,7 +14,6 @@ import AccountMenu from '@/components/AccountMenu';
 const TOP_OFFSET = 66;
 
 const Navbar = () => {
-  const isSmallScreens = useMediaQuery('(max-width: 767px)');
   const isLargeScreens = useMediaQuery('(max-width: 1023px)');
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showAccountMenu, setShowAccountMenu] = useState(false);
@@ -50,7 +49,7 @@ const Navbar = () => {
         className={`relative px-4 md:px-10 py-6 flex flex-row items-center transition 
         duration-500 ${showBackground ? 'bg-zinc-900/90' : ''}`}
       >
-        {isSmallScreens ? (
+        <div className='flex md:hidden'>
           <Image
             className='object-contain h-10'
             src={'/images/logo-letter.png'}
@@ -59,7 +58,8 @@ const Navbar = () => {
             width={50}
             quality={100}
           />
-        ) : (
+        </div>
+        <div className='hidden md:flex'>
           <Image
             className='object-contain w-[50px] md:w-[100px]'
             src={'/images/logo.png'}
@@ -68,7 +68,7 @@ const Navbar = () => {
             width={100}
             quality={100}
           />
-        )}
+        </div>
 
         {/* Larger Screens */}
         <div className='lg:flex hidden flex-row ml-8 gap-7'>
@@ -82,7 +82,7 @@ const Navbar = () => {
         {/* Smaller Screens */}
         <div
           onClick={toggleMobileMenu}
-          className='lg:hidden absolute top-8 left-[50%] translate-x-[-50%]
+          className='lg:hidden absolute top-12 md:top-auto left-[50%] translate-x-[-50%]
           flex flex-row gap-2 cursor-pointer'
         >
           <p className='text-white text-base drop-shadow-2xl'>Discover</p>

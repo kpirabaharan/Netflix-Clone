@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
-import { BsChevronDown, BsSearch, BsBell } from 'react-icons/bs';
+import { BsSearch, BsBell } from 'react-icons/bs';
+import { AiFillCaretDown } from 'react-icons/ai';
 
 import useMediaQuery from '@/hooks/useMediaQuery';
 
@@ -14,6 +15,7 @@ const TOP_OFFSET = 66;
 
 const Navbar = () => {
   const isSmallScreens = useMediaQuery('(max-width: 767px)');
+  const isLargeScreens = useMediaQuery('(max-width: 1023px)');
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
@@ -45,7 +47,7 @@ const Navbar = () => {
   return (
     <nav className='w-full fixed z-40'>
       <div
-        className={`px-4 md:px-10 py-6 flex flex-row items-center transition 
+        className={`relative px-4 md:px-10 py-6 flex flex-row items-center transition 
         duration-500 ${showBackground ? 'bg-zinc-900/90' : ''}`}
       >
         {isSmallScreens ? (
@@ -68,6 +70,7 @@ const Navbar = () => {
           />
         )}
 
+        {/* Larger Screens */}
         <div className='lg:flex hidden flex-row ml-8 gap-7'>
           <NavbarItem label='Home' />
           <NavbarItem label='TV Series' />
@@ -76,19 +79,25 @@ const Navbar = () => {
           <NavbarItem label='My List' />
         </div>
 
+        {/* Smaller Screens */}
         <div
           onClick={toggleMobileMenu}
-          className='lg:hidden flex flex-row items-center gap-2 ml-8 
-          cursor-pointer relative'
+          className='lg:hidden absolute top-8 left-[50%] translate-x-[-50%]
+          flex flex-row gap-2 cursor-pointer'
         >
-          <p className='text-white text-sm'>Discover</p>
-          <BsChevronDown
-            className={`text-white transition ${
-              showMobileMenu ? 'rotate-0' : '-rotate-90'
-            }`}
-          />
+          <p className='text-white text-base drop-shadow-2xl'>Discover</p>
+          <div className='flex items-center'>
+            <AiFillCaretDown
+              size={15}
+              className={`text-white transition ${
+                showMobileMenu ? 'rotate-0' : 'rotate-0'
+              }`}
+            />
+          </div>
           <MobileMenu visible={showMobileMenu} />
         </div>
+
+        {/* End of Navbar */}
         <div className='flex flex-row ml-auto gap-7 items-center'>
           <div className='text-gray-200 hover:opacity-70 cursor-pointer transition'>
             <BsSearch />
@@ -108,9 +117,10 @@ const Navbar = () => {
                 width={500}
               />
             </div>
-            <BsChevronDown
+            <AiFillCaretDown
+              size={isLargeScreens ? 15 : 20}
               className={`text-white transition ${
-                showAccountMenu ? 'rotate-0' : '-rotate-90'
+                showAccountMenu ? 'rotate-180' : 'rotate-0'
               }`}
             />
             <AccountMenu visible={showAccountMenu} />

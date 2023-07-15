@@ -38,16 +38,9 @@ const MovieCard = ({ movie }: MovieCardProps) => {
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={
-        isXSScreens
-          ? () => {
-              console.log('Woof');
-              onOpen(movie.id);
-            }
-          : () => {}
-      }
+      onClick={() => onOpen(movie.id)}
       className='group col-span relative h-[25vw] md:h-[18vw] lg:h-[13vw] 2xl:h-[9vw] 
-      sm:hover:scale-125 hover:z-20 transition duration-300 cursor-pointer sm:cursor-default'
+      sm:hover:scale-125 hover:z-20 transition duration-300 cursor-pointer'
     >
       <img
         className='object-cover transition duration shadow-xl rounded-md 

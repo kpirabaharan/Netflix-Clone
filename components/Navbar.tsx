@@ -47,79 +47,81 @@ const Navbar = () => {
   return (
     <nav className='w-full fixed z-20'>
       <div
-        className={`relative px-4 md:px-10 py-6 flex flex-row items-center transition 
-        duration-500 ${showBackground ? 'bg-zinc-900/90' : ''}`}
+        className={`relative  transition 
+        duration-500 ${showBackground ? 'bg-zinc-900/90' : ''} h-28 md:h-auto`}
       >
-        <div className='flex md:hidden'>
-          <Image
-            className='object-contain h-10'
-            src={'/images/logo-letter.png'}
-            alt='logo'
-            height={50}
-            width={50}
-            quality={100}
-          />
-        </div>
-        <div className='hidden md:flex'>
-          <Image
-            className='object-contain w-[50px] md:w-[100px]'
-            src={'/images/logo.png'}
-            alt='logo'
-            height={100}
-            width={100}
-            quality={100}
-          />
-        </div>
-
-        {/* Larger Screens */}
-        <div className='lg:flex hidden flex-row ml-8 gap-7'>
-          <NavbarItem label='Home' />
-          <NavbarItem label='TV Series' />
-          <NavbarItem label='Movies' />
-          <NavbarItem label='New & Popular' />
-          <NavbarItem label='My List' />
-        </div>
-
-        {/* Smaller Screens */}
-        <div
-          onClick={openMobileMenu}
-          className='lg:hidden absolute top-12 md:top-auto left-[50%] translate-x-[-50%]
-          flex flex-row gap-2 cursor-pointer'
-        >
-          <p className='text-white text-base drop-shadow-2xl'>Discover</p>
-          <div className='flex items-center'>
-            <AiFillCaretDown size={15} className='text-white transition' />
-          </div>
-          {/* <MobileMenu visible={showMobileMenu} /> */}
-        </div>
-
-        {/* End of Navbar */}
-        <div className='flex flex-row ml-auto gap-7 items-center'>
-          <div className='text-gray-200 hover:opacity-70 cursor-pointer transition'>
-            <BsSearch />
-          </div>
-          <div className='text-gray-200 hover:opacity-70 cursor-pointer transition'>
-            <BsBell />
-          </div>
-          <div
-            onClick={toggleAccountMenu}
-            className='flex flex-row items-center gap-2 cursor-pointer relative'
-          >
-            <div className='w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden'>
-              <Image
-                src={'/images/avatar-slate.png'}
-                alt='Profile'
-                height={500}
-                width={500}
-              />
-            </div>
-            <AiFillCaretDown
-              size={isLargeScreens ? 15 : 20}
-              className={`text-white transition ${
-                showAccountMenu ? 'rotate-180' : 'rotate-0'
-              }`}
+        <div className='px-4 md:px-10 py-6 flex flex-row items-center'>
+          <div className='flex md:hidden'>
+            <Image
+              className='object-contain h-10 w-auto'
+              src={'/images/logo-letter.png'}
+              alt='logo'
+              height={50}
+              width={50}
+              quality={100}
             />
-            <AccountMenu visible={showAccountMenu} />
+          </div>
+          <div className='hidden md:flex'>
+            <Image
+              className='object-contain w-[50px] md:w-[100px] h-auto'
+              src={'/images/logo.png'}
+              alt='logo'
+              height={100}
+              width={100}
+              quality={100}
+            />
+          </div>
+
+          {/* Larger Screens */}
+          <div className='lg:flex hidden flex-row ml-8 gap-7'>
+            <NavbarItem label='Home' />
+            <NavbarItem label='TV Series' />
+            <NavbarItem label='Movies' />
+            <NavbarItem label='New & Popular' />
+            <NavbarItem label='My List' />
+          </div>
+
+          {/* Smaller Screens */}
+          <div
+            onClick={openMobileMenu}
+            className='lg:hidden absolute top-[4.5rem] md:top-auto left-[50%] translate-x-[-50%]
+            flex flex-row gap-2 cursor-pointer'
+          >
+            <p className='text-white text-base drop-shadow-2xl'>Discover</p>
+            <div className='flex items-center'>
+              <AiFillCaretDown size={15} className='text-white transition' />
+            </div>
+            {/* <MobileMenu visible={showMobileMenu} /> */}
+          </div>
+
+          {/* End of Navbar */}
+          <div className='flex flex-row ml-auto gap-7 items-center'>
+            <div className='text-gray-200 hover:opacity-70 cursor-pointer transition'>
+              <BsSearch />
+            </div>
+            <div className='text-gray-200 hover:opacity-70 cursor-pointer transition'>
+              <BsBell />
+            </div>
+            <div
+              onClick={toggleAccountMenu}
+              className='flex flex-row items-center gap-2 cursor-pointer relative'
+            >
+              <div className='w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden'>
+                <Image
+                  src={'/images/avatar-slate.png'}
+                  alt='Profile'
+                  height={500}
+                  width={500}
+                />
+              </div>
+              <AiFillCaretDown
+                size={isLargeScreens ? 15 : 20}
+                className={`text-white transition ${
+                  showAccountMenu ? 'rotate-180' : 'rotate-0'
+                }`}
+              />
+              <AccountMenu visible={showAccountMenu} />
+            </div>
           </div>
         </div>
       </div>

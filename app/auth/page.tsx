@@ -13,7 +13,7 @@ const AuthPage = () => {
           <Image
             height={175}
             width={175}
-            className='object-cover'
+            className='object-cover h-auto w-auto'
             src='/images/logo.png'
             alt='logo'
           />

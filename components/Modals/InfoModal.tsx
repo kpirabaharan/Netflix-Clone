@@ -73,27 +73,67 @@ const InfoModal = () => {
                     </div>
                   </div>
                   <div className='p-8 bg-zinc-900'>
-                    <p
+                    <motion.p
                       className='text-white text-2xl md:text-3xl lg:text-4xl h-full 
                   font-bold mb-2'
+                      initial={{ y: '100%', opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{
+                        duration: 0.3,
+                        delay: 0.2,
+                      }}
                     >
                       {movie.title}
-                    </p>
-                    <p className='text-white'>{movie.description}</p>
+                    </motion.p>
+                    <motion.p
+                      className='text-white'
+                      initial={{ y: '100%', opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{
+                        duration: 0.3,
+                        delay: 0.4,
+                      }}
+                    >
+                      {movie.description}
+                    </motion.p>
                     <hr className='bg-neutral-200 border-0 h-px my-4' />
-                    <p className='text-white text-lg pb-4'>
+                    <motion.p
+                      className='text-white text-lg pb-4'
+                      initial={{ y: '100%', opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{
+                        duration: 0.3,
+                        delay: 0.6,
+                      }}
+                    >
                       Info on
                       <span className='font-bold'> {movie.title}</span>
-                    </p>
+                    </motion.p>
                     <div className='flex flex-col gap-y-1'>
-                      <p className='text-neutral-500 text-sm'>
+                      <motion.p
+                        className='text-neutral-500 text-sm'
+                        initial={{ y: '100%', opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{
+                          duration: 0.3,
+                          delay: 0.8,
+                        }}
+                      >
                         Genre:
                         <span className='text-white'> {movie.genre}</span>
-                      </p>
-                      <p className='text-neutral-500 text-sm'>
+                      </motion.p>
+                      <motion.p
+                        className='text-neutral-500 text-sm'
+                        initial={{ y: '100%', opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{
+                          duration: 0.3,
+                          delay: 1,
+                        }}
+                      >
                         Duration:
                         <span className='text-white'> {movie.duration}</span>
-                      </p>
+                      </motion.p>
                     </div>
                   </div>
 

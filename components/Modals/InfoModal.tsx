@@ -1,7 +1,5 @@
 'use client';
 
-import { toast } from 'react-hot-toast';
-
 import { Movie } from '@/types';
 import useInfoModal from '@/hooks/useInfoModal';
 import useMovie from '@/hooks/useMovie';

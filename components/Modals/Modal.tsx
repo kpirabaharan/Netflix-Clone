@@ -20,7 +20,7 @@ const Modal = ({
         <Overlay className='bg-neutral-900/90 backdrop-blur-sm fixed inset-0 z-30' />
         <Content
           className='fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]
-          w-[90%] md:w-[80%] mx-auto max-w-3xl bg-zinc-900'
+          w-[90%] md:w-[80%] mx-auto max-w-3xl bg-zinc-900 z-40'
         >
           <div>{children}</div>
           {isCloseButton ? (

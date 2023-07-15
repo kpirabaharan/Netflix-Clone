@@ -7,7 +7,6 @@ import { motion } from 'framer-motion';
 import { Movie } from '@/types';
 import useInfoModal from '@/hooks/useInfoModal';
 import useMediaQuery from '@/hooks/useMediaQuery';
-import { slideIn, fadeIn } from '@/utils';
 
 import FavoriteButton from './Buttons/FavoriteButton';
 import PlayIcon from './IconButtons/PlayIcon';

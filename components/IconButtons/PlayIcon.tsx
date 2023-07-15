@@ -17,7 +17,7 @@ const PlayIcon = ({ movieId }: PlayIconProps) => {
   return (
     <div
       onClick={() => router.push(`/watch/${movieId}`)}
-      className='cursor-pointer w-8 h-8 lg:w-10 lg:h-10 bg-white rounded-full
+      className='cursor-pointer w-8 h-8 bg-white rounded-full
       flex justify-center items-center transition hover:bg-neutral-300'
     >
       <BsFillPlayFill size={isMediumScreens ? 25 : 30} />

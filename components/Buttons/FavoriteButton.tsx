@@ -51,7 +51,7 @@ const FavoriteButton = ({ movieId }: FavoriteButtonProps) => {
 
   return (
     <div
-      className='cursor-pointer group/item w-8 h-8 lg:w-10 lg:h-10 rounded-full 
+      className='cursor-pointer group/item w-8 h-8 rounded-full 
       border-2 flex justify-center items-center transition duration border-white 
       bg-transparent hover:bg-white'
       onClick={toggleFavorite}

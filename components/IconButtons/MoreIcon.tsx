@@ -15,9 +15,9 @@ const MoreIcon = ({ movieId, onOpen }: MoreIconProps) => {
   return (
     <div
       onClick={() => onOpen(movieId)}
-      className='cursor-pointer group/item w-8 h-8 lg:w-10 lg:h-10 
-      border-2 rounded-full flex justify-center items-center bg-transparent
-      hover:bg-white transition duration border-white'
+      className='cursor-pointer group/item w-8 h-8 border-2 rounded-full 
+      flex justify-center items-center bg-transparent hover:bg-white transition 
+      duration border-white'
     >
       <BsChevronDown
         className='text-white group-hover/item:text-black transition duration'

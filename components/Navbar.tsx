@@ -6,18 +6,19 @@ import { BsSearch, BsBell } from 'react-icons/bs';
 import { AiFillCaretDown } from 'react-icons/ai';
 
 import useMediaQuery from '@/hooks/useMediaQuery';
+import useMobileMenuModal from '@/hooks/useMobileMenuModal';
 
 import NavbarItem from '@/components/NavbarItem';
-import MobileMenu from '@/components/MobileMenu';
 import AccountMenu from '@/components/AccountMenu';
 
 const TOP_OFFSET = 66;
 
 const Navbar = () => {
   const isLargeScreens = useMediaQuery('(max-width: 1023px)');
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
+
+  const { onOpen } = useMobileMenuModal();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,16 +36,16 @@ const Navbar = () => {
     };
   }, []);
 
-  const toggleMobileMenu = useCallback(() => {
-    setShowMobileMenu((current) => !current);
-  }, []);
+  const openMobileMenu = () => {
+    onOpen();
+  };
 
   const toggleAccountMenu = useCallback(() => {
     setShowAccountMenu((current) => !current);
   }, []);
 
   return (
-    <nav className='w-full fixed z-40'>
+    <nav className='w-full fixed z-20'>
       <div
         className={`relative px-4 md:px-10 py-6 flex flex-row items-center transition 
         duration-500 ${showBackground ? 'bg-zinc-900/90' : ''}`}
@@ -81,20 +82,15 @@ const Navbar = () => {
 
         {/* Smaller Screens */}
         <div
-          onClick={toggleMobileMenu}
+          onClick={openMobileMenu}
           className='lg:hidden absolute top-12 md:top-auto left-[50%] translate-x-[-50%]
           flex flex-row gap-2 cursor-pointer'
         >
           <p className='text-white text-base drop-shadow-2xl'>Discover</p>
           <div className='flex items-center'>
-            <AiFillCaretDown
-              size={15}
-              className={`text-white transition ${
-                showMobileMenu ? 'rotate-0' : 'rotate-0'
-              }`}
-            />
+            <AiFillCaretDown size={15} className='text-white transition' />
           </div>
-          <MobileMenu visible={showMobileMenu} />
+          {/* <MobileMenu visible={showMobileMenu} /> */}
         </div>
 
         {/* End of Navbar */}

@@ -7,8 +7,8 @@ import useInfoModal from '@/hooks/useInfoModal';
 import useMovie from '@/hooks/useMovie';
 
 import Modal from './Modal';
-import PlayButton from './Buttons/PlayButton';
-import FavoriteButton from './Buttons/FavoriteButton';
+import PlayButton from '../Buttons/PlayButton';
+import FavoriteButton from '../Buttons/FavoriteButton';
 
 const InfoModal = () => {
   const { isOpen, onClose, movieId } = useInfoModal();

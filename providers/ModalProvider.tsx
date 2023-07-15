@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
-import InfoModal from '@/components/InfoModal';
+import InfoModal from '@/components/Modals/InfoModal';
+import MobileMenuModal from '@/components/Modals/MobileMenuModal';
 
 const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -18,6 +19,7 @@ const ModalProvider = () => {
   return (
     <>
       <InfoModal />
+      <MobileMenuModal />
     </>
   );
 };

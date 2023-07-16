@@ -4,11 +4,15 @@ import Image from 'next/image';
 import { signOut } from 'next-auth/react';
 import { PiSignOutBold } from 'react-icons/pi';
 
+import useCurrentUser from '@/hooks/useCurrentUser';
+
 interface AccountMenuProps {
   visible?: boolean;
 }
 
 const AccountMenu = ({ visible }: AccountMenuProps) => {
+  const { user } = useCurrentUser();
+
   if (!visible) {
     return null;
   }
@@ -28,7 +32,7 @@ const AccountMenu = ({ visible }: AccountMenuProps) => {
             width={100}
           />
           <p className='text-white text-sm group-hover/item:underline'>
-            Username
+            {user?.name}
           </p>
         </div>
         <hr className='bg-gray-600 border-0 h-px my-4' />

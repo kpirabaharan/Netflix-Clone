@@ -1,6 +1,6 @@
 'use client';
 
-import { redirect,  } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
 import { authOptions } from '@/lib/auth';
@@ -15,7 +15,6 @@ const ProfilePage = () => {
       redirect('/auth');
     },
   });
-
 
   const { user } = useCurrentUser();
 

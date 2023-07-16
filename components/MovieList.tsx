@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { isEmpty, round } from 'lodash';
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import { isEmpty } from 'lodash';
+import { AnimatePresence, motion } from 'framer-motion';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 import { Movie } from '@/types';
@@ -19,11 +20,21 @@ const MovieList = ({ title, movies, count, rowSize }: MovieListProps) => {
   const [numberOfRows, setNumberOfRows] = useState(1);
   const [row, setRow] = useState(0);
 
+  const [initial, setInitial] = useState<{ x: string }>({ x: '630%' });
+  const [animate, setAnimate] = useState<{ x: number }>({ x: 0 });
+  const [exit, setExit] = useState<{ x: string }>({ x: '-630%' });
+
+  const [rightSize, setRightSize] = useState<{ x: string }>({ x: '630%' });
+  const [leftSize, setLeftSize] = useState<{ x: string }>({ x: '-630%' });
+
   useEffect(() => {
     setNumberOfRows(Math.ceil(count / rowSize));
     if (row === numberOfRows) {
       setRow(numberOfRows - 1);
     }
+    setRightSize({ x: `${rowSize * 100 + 30}%` });
+    setLeftSize({ x: `${-rowSize * 100 - 30}%` });
+    console.log('Something');
   }, [count, rowSize, numberOfRows, row]);
 
   const incrementRow = () => {
@@ -34,20 +45,34 @@ const MovieList = ({ title, movies, count, rowSize }: MovieListProps) => {
     setRow((val) => val - 1);
   };
 
+  const nextTransition = useCallback(() => {
+    setInitial(rightSize);
+    setAnimate({ x: 0 });
+    setExit(leftSize);
+    console.log('Run Right');
+  }, [rightSize, leftSize]);
+
+  const previousTransition = useCallback(() => {
+    setInitial(leftSize);
+    setAnimate({ x: 0 });
+    setExit(rightSize);
+    console.log('Run Left');
+  }, [leftSize, rightSize]);
+
   const isDisabledLeft = row === 0;
   const isDisabledRight = row === numberOfRows - 1;
 
   const disableLeftButton = isDisabledLeft ? 'text-gray-700' : 'text-white';
   const disableRightButton = isDisabledRight ? 'text-gray-700' : 'text-white';
 
+  const displayedMovies = useMemo(
+    () => movies?.slice(row * rowSize, Math.min(row * rowSize + rowSize, count)),
+    [count, movies, row, rowSize],
+  );
+
   if (isEmpty(movies)) {
     return null;
   }
-
-  const displayedMovies = movies.slice(
-    row * rowSize,
-    Math.min(row * rowSize + rowSize, count),
-  );
 
   return (
     <div className='mt-4 px-4 sm:px-12 '>
@@ -58,16 +83,29 @@ const MovieList = ({ title, movies, count, rowSize }: MovieListProps) => {
       <div className='w-full relative'>
         <div
           className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 
-          gap-2'
+            gap-2 grid-rows-1 h-[25vw] md:h-[18vw] lg:h-[13vw] 2xl:h-[9vw]'
         >
-          {displayedMovies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
+          <AnimatePresence>
+            {displayedMovies.map((movie) => (
+              <motion.div
+                key={movie.id}
+                initial={initial}
+                animate={animate}
+                exit={exit}
+                transition={{
+                  duration: 1,
+                }}
+              >
+                <MovieCard movie={movie} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
 
         {/* Left Arrow */}
         <div
           onClick={!isDisabledLeft ? () => decrementRow() : () => {}}
+          onMouseEnter={() => previousTransition()}
           className='h-[25vw] md:h-[18vw] lg:h-[13vw] 2xl:h-[9vw] w-12 
           flex justify-center items-center group/item cursor-pointer
           hover:bg-black/20 transition duration-300 absolute -left-12 top-0 z-20'
@@ -82,6 +120,7 @@ const MovieList = ({ title, movies, count, rowSize }: MovieListProps) => {
         {/* Right Arrow */}
         <div
           onClick={!isDisabledRight ? () => incrementRow() : () => {}}
+          onMouseEnter={() => nextTransition()}
           className='h-[25vw] md:h-[18vw] lg:h-[13vw] 2xl:h-[9vw] w-12  
           flex justify-center items-center group/item cursor-pointer
           hover:bg-black/20 transition duration-300 absolute -right-12 top-0 z-20'

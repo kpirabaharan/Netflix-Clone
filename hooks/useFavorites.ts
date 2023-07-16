@@ -9,7 +9,13 @@ const useFavorites = () => {
     revalidateOnReconnect: false,
   });
 
-  return { favorites: data, error, isLoading, mutate };
+  return {
+    favorites: data?.favoriteMovies,
+    favoriteCount: data?.count,
+    error,
+    isLoading,
+    mutate,
+  };
 };
 
 export default useFavorites;

@@ -10,8 +10,11 @@ export const GET = async (req: Request) => {
     const favoriteMovies = await prisma.movie.findMany({
       where: { id: { in: currentUser?.favoriteIds } },
     });
+    const count = await prisma.movie.count({
+      where: { id: { in: currentUser?.favoriteIds } },
+    });
 
-    return NextResponse.json(favoriteMovies, { status: 200 });
+    return NextResponse.json({ favoriteMovies, count, status: 200 });
   } catch (err) {
     console.log(err);
     return new NextResponse('Internal error', { status: 500 });

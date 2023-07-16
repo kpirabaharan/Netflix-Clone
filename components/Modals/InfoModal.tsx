@@ -23,7 +23,7 @@ const InfoModal = () => {
       setIsShown(false);
       setTimeout(() => {
         onClose();
-      }, 500);
+      }, 600);
     }
   };
 

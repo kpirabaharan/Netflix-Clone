@@ -36,7 +36,7 @@ const MovieCard = ({ movie }: MovieCardProps) => {
     <div
       onClick={() => onOpen(movie.id)}
       className='group col-span relative h-[25vw] md:h-[18vw] lg:h-[13vw] 2xl:h-[9vw] 
-      sm:hover:scale-125 hover:z-20 transition duration-300 cursor-pointer'
+      sm:hover:scale-125 hover:z-20 transition duration-300 cursor-pointer z-10'
     >
       <img
         className='object-cover transition duration shadow-xl rounded-md 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { useParams, useRouter } from 'next/navigation';
 import { AiOutlineArrowLeft } from 'react-icons/ai';

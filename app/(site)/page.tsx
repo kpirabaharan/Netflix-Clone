@@ -25,7 +25,6 @@ const HomePage = () => {
   const isMediumScreens = useMediaQuery('(max-width: 1023px)');
   const isLargeScreens = useMediaQuery('(max-width: 1535px)');
 
-  const [currentPage, setCurrentPage] = useState(1);
   const [numberOfMovies, setNumberOfMovies] = useState(6);
 
   // When MediaQueries Changes

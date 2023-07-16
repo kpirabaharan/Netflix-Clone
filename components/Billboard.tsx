@@ -1,17 +1,13 @@
 'use client';
 
-import useMediaQuery from '@/hooks/useMediaQuery';
-import useBillboard from '@/hooks/useBillboard';
-
 import { Movie } from '@/types';
 import useInfoModal from '@/hooks/useInfoModal';
+import useBillboard from '@/hooks/useBillboard';
 
-import PlayButton from './Buttons/PlayButton';
-import MoreInfoButton from './MoreInfoButton';
+import PlayButton from '@/components/Buttons/PlayButton';
+import MoreInfoButton from '@/components/MoreInfoButton';
 
 const Billboard = () => {
-  const isMediumScreens = useMediaQuery('(max-width: 1023px)');
-
   const { onOpen } = useInfoModal();
 
   const { movie }: { movie: Movie } = useBillboard();
@@ -23,13 +19,12 @@ const Billboard = () => {
   return (
     <div className='group relative h-[56.25vw] max-h-[80vh]'>
       <video
-        className='w-full h-[56.25vw] object-cover brightness-75 max-h-[80vh] '
+        className='w-full h-full object-cover brightness-75'
         autoPlay
         muted
-        loop
         poster={movie.thumbnailUrl}
         src={movie.videoUrl}
-      ></video>
+      />
 
       {/* Inner Shadow for Video */}
       <div className='absolute w-full h-full top-0 left-0 shadow-inner-upper' />
@@ -63,8 +58,8 @@ const Billboard = () => {
           {movie.title}
         </p>
         <p
-          className='text-white text-[8px] md:text-base mt-3 md:mt-8 w-[90%]
-          md:w-[80%] lg:w-[50%] drop-shadow-xl transition duration-500'
+          className='text-white text-lg mt-3 md:mt-8 w-[90%] md:w-[80%] lg:w-[50%] 
+          line-clamp-5'
         >
           {movie.description}
         </p>

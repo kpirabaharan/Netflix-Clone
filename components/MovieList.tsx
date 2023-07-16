@@ -41,6 +41,11 @@ const MovieList = ({ title, movies, count, rowSize }: MovieListProps) => {
     return null;
   }
 
+  const displayedMovies = movies.slice(
+    row * rowSize,
+    Math.min(row * rowSize + rowSize, count),
+  );
+
   return (
     <div className='mt-4 px-4 sm:px-12 '>
       <p className='text-white text-md md:text-xl lg:text-2xl font-semibold mb-4'>
@@ -52,7 +57,7 @@ const MovieList = ({ title, movies, count, rowSize }: MovieListProps) => {
           className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 
           gap-2'
         >
-          {movies.map((movie) => (
+          {displayedMovies.map((movie) => (
             <MovieCard key={movie.id} movie={movie} />
           ))}
         </div>

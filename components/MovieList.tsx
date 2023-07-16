@@ -21,7 +21,10 @@ const MovieList = ({ title, movies, count, rowSize }: MovieListProps) => {
 
   useEffect(() => {
     setNumberOfRows(Math.ceil(count / rowSize));
-  }, [count, rowSize]);
+    if (row === numberOfRows) {
+      setRow(numberOfRows - 1);
+    }
+  }, [count, rowSize, numberOfRows, row]);
 
   const incrementRow = () => {
     setRow((val) => val + 1);

@@ -1,22 +1,16 @@
-'use client';
-
 import { redirect } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth';
 
 import { authOptions } from '@/lib/auth';
-import useCurrentUser from '@/hooks/useCurrentUser';
 
 import Avatar from '@/components/Avatar';
 
-const ProfilePage = () => {
-  const session = useSession({
-    required: true,
-    onUnauthenticated() {
-      redirect('/auth');
-    },
-  });
+const ProfilePage = async () => {
+  const session = await getServerSession(authOptions);
 
-  const { user } = useCurrentUser();
+  if (!session || !session?.user) {
+    redirect('/auth');
+  }
 
   return (
     <div className='flex flex-row items-center h-full justify-center'>
@@ -25,7 +19,7 @@ const ProfilePage = () => {
           Who is watching?
         </h1>
         <div className='flex flex-row items-center justify-center gap-8 mt-10'>
-          <Avatar name={user?.name} />
+          <Avatar name={session.user.name as string} />
         </div>
       </div>
     </div>

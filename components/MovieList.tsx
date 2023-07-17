@@ -76,7 +76,7 @@ const MovieList = ({ title, movies, count, rowSize }: MovieListProps) => {
   }
 
   return (
-    <div className='mt-4 px-4 sm:px-12 '>
+    <div className='mt-4 px-4 sm:px-12'>
       <p className='text-white text-md md:text-xl lg:text-2xl font-semibold mb-4'>
         {title}
       </p>

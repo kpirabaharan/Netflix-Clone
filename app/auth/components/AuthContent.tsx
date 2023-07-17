@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
 import { signIn } from 'next-auth/react';
@@ -28,7 +27,7 @@ const AuthContent = () => {
 
   const login = async () => {
     try {
-      const response = await signIn('credentials', {
+      await signIn('credentials', {
         email,
         password,
         callbackUrl: '/profiles',
@@ -42,7 +41,7 @@ const AuthContent = () => {
     setIsLoading(true);
     const data = { email, name, password };
 
-    const { user, status, error } = await postData({
+    const { status, error } = await postData({
       url: '/api/register',
       data,
     });
@@ -118,15 +117,15 @@ const AuthContent = () => {
           </div>
         </div>
 
-        <p className='text-neutral-500 mt-12 text-sm'>
+        <p className='text-neutral-500 mt-12 text-base'>
           {variant === 'login'
-            ? 'First time using Netflix?'
+            ? 'New to Netflix?'
             : 'Already have an account?'}
           <span
             onClick={toggleVariant}
             className='text-white ml-1 hover:underline cursor-pointer'
           >
-            {variant === 'login' ? 'Create an account' : 'Login instead'}
+            {variant === 'login' ? 'Sign up now' : 'Login instead'}
           </span>
         </p>
       </div>

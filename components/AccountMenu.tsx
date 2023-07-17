@@ -26,7 +26,10 @@ const AccountMenu = ({ visible }: AccountMenuProps) => {
       border-2 border-gray-800 rounded-lg'
     >
       <div className='flex flex-col gap-3'>
-        <div className='w-full px-3 group/item flex flex-row gap-3 items-center'>
+        <div
+          className='w-full px-3 group/item flex flex-row justify-center
+          gap-3 items-center'
+        >
           <Image
             className='w-8 rounded-md'
             src={'/images/avatar-slate.png'}

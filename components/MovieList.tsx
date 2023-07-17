@@ -27,6 +27,8 @@ const MovieList = ({ title, movies, count, rowSize }: MovieListProps) => {
   const [rightSize, setRightSize] = useState<{ x: string }>({ x: '630%' });
   const [leftSize, setLeftSize] = useState<{ x: string }>({ x: '-630%' });
 
+  const [isAnimate, setIsAnimate] = useState(false);
+
   useEffect(() => {
     setNumberOfRows(Math.ceil(count / rowSize));
     if (row === numberOfRows) {
@@ -34,7 +36,6 @@ const MovieList = ({ title, movies, count, rowSize }: MovieListProps) => {
     }
     setRightSize({ x: `${rowSize * 100 + 30}%` });
     setLeftSize({ x: `${-rowSize * 100 - 30}%` });
-    console.log('Something');
   }, [count, rowSize, numberOfRows, row]);
 
   const incrementRow = () => {
@@ -49,14 +50,12 @@ const MovieList = ({ title, movies, count, rowSize }: MovieListProps) => {
     setInitial(rightSize);
     setAnimate({ x: 0 });
     setExit(leftSize);
-    console.log('Run Right');
   }, [rightSize, leftSize]);
 
   const previousTransition = useCallback(() => {
     setInitial(leftSize);
     setAnimate({ x: 0 });
     setExit(rightSize);
-    console.log('Run Left');
   }, [leftSize, rightSize]);
 
   const isDisabledLeft = row === 0;
@@ -65,10 +64,12 @@ const MovieList = ({ title, movies, count, rowSize }: MovieListProps) => {
   const disableLeftButton = isDisabledLeft ? 'text-gray-700' : 'text-white';
   const disableRightButton = isDisabledRight ? 'text-gray-700' : 'text-white';
 
-  const displayedMovies = useMemo(
-    () => movies?.slice(row * rowSize, Math.min(row * rowSize + rowSize, count)),
-    [count, movies, row, rowSize],
-  );
+  const displayedMovies = useMemo(() => {
+    return movies?.slice(
+      row * rowSize,
+      Math.min(row * rowSize + rowSize, count),
+    );
+  }, [count, movies, row, rowSize]);
 
   if (isEmpty(movies)) {
     return null;
@@ -86,19 +87,27 @@ const MovieList = ({ title, movies, count, rowSize }: MovieListProps) => {
             gap-2 grid-rows-1 h-[25vw] md:h-[18vw] lg:h-[13vw] 2xl:h-[9vw]'
         >
           <AnimatePresence>
-            {displayedMovies.map((movie) => (
-              <motion.div
-                key={movie.id}
-                initial={initial}
-                animate={animate}
-                exit={exit}
-                transition={{
-                  duration: 1,
-                }}
-              >
-                <MovieCard movie={movie} />
-              </motion.div>
-            ))}
+            {displayedMovies.map((movie) => {
+              // console.log(movie.title);
+              return (
+                <motion.div
+                  className='hover:z-20'
+                  key={movie.id}
+                  initial={isAnimate ? initial : false}
+                  animate={animate}
+                  exit={exit}
+                  transition={
+                    isAnimate
+                      ? {
+                          duration: 1,
+                        }
+                      : { duration: 0.01 }
+                  }
+                >
+                  <MovieCard movie={movie} />
+                </motion.div>
+              );
+            })}
           </AnimatePresence>
         </div>
 
@@ -106,6 +115,8 @@ const MovieList = ({ title, movies, count, rowSize }: MovieListProps) => {
         <div
           onClick={!isDisabledLeft ? () => decrementRow() : () => {}}
           onMouseEnter={() => previousTransition()}
+          onMouseOver={() => setIsAnimate(true)}
+          onMouseLeave={() => setIsAnimate(false)}
           className='h-[25vw] md:h-[18vw] lg:h-[13vw] 2xl:h-[9vw] w-12 
           flex justify-center items-center group/item cursor-pointer
           hover:bg-black/20 transition duration-300 absolute -left-12 top-0 z-20'
@@ -121,6 +132,8 @@ const MovieList = ({ title, movies, count, rowSize }: MovieListProps) => {
         <div
           onClick={!isDisabledRight ? () => incrementRow() : () => {}}
           onMouseEnter={() => nextTransition()}
+          onMouseOver={() => setIsAnimate(true)}
+          onMouseLeave={() => setIsAnimate(false)}
           className='h-[25vw] md:h-[18vw] lg:h-[13vw] 2xl:h-[9vw] w-12  
           flex justify-center items-center group/item cursor-pointer
           hover:bg-black/20 transition duration-300 absolute -right-12 top-0 z-20'

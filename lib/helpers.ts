@@ -4,8 +4,6 @@ interface postDataProps {
 }
 
 export const postData = async ({ url, data }: postDataProps) => {
-  console.log('POST REQUEST:', url, data);
-
   const res: Response = await fetch(url, {
     method: 'POST',
     headers: new Headers({ 'Content-Type': 'application/json' }),

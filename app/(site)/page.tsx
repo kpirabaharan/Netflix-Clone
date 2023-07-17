@@ -38,7 +38,6 @@ const HomePage = () => {
     } else {
       setNumberOfMovies(6);
     }
-    // console.log(numberOfMovies);
   }, [isLargeScreens, isMediumScreens, isSmallScreens, numberOfMovies]);
 
   const { movies, count }: { movies: Movie[]; count: number } = useMovieList();

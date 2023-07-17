@@ -1,34 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Netflix Clone App (Next.js)
 
-## Getting Started
+## Introduction
 
-First, run the development server:
+This is a Netflix clone web app created using Next.js, a React framework for server-side rendering and building modern web applications. The app replicates the core functionalities of Netflix, allowing users to browse and stream movies and TV shows. The app utilizes Framer Motion for smooth animations and transitions. User authentication is implemented using NextAuth with Google and GitHub providers. The app uses MongoDB as the database for storing data.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- User Authentication: Users can sign up or log in to their accounts using their Google or GitHub credentials.
+- Home Page: Display a curated selection of popular movies and TV shows.
+- Paginated Rows: Movies and TV shows are organized into paginated rows, allowing users to scroll through different categories.
+- Movie Details: Users can view detailed information about a specific movie or TV show.
+- Watchlist: Users can add movies and TV shows to their watchlist for later viewing.
+- Responsive Design: The app is optimized for various screen sizes and devices.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Demo
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+You can access the live demo of the app at [https://netflix-clone-kpirabaharan.vercel.app/](https://netflix-clone-kpirabaharan.vercel.app/).
 
-## Learn More
+- Feel free to use the anonymous account linked to a dummy email address.
+- Or you can use your own email address.
 
-To learn more about Next.js, take a look at the following resources:
+## Technologies Used
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Next.js: React framework for server-side rendering and building web applications
+- React: JavaScript library for building user interfaces
+- Framer Motion: Animation and motion library for smooth transitions
+- NextAuth: Authentication library for Next.js applications
+- Google and GitHub providers: Authentication providers for NextAuth
+- MongoDB: Database for storing app data
+- Tailwind CSS: Utility-first CSS framework for styling
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Screenshots
 
-## Deploy on Vercel
+Include relevant screenshots of the app to showcase its design and features.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![Screenshot 1](./screenshots/screenshot1.png)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![Screenshot 2](./screenshots/screenshot2.png)
+
+## License
+
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+
+## Contact
+
+If you have any questions or suggestions, please feel free to reach out to us:
+
+- Email: kpirabaharan3@gmail.com
+- LinkedIn: [https://linkedin.com/in/kpirabaharan/](https://linkedin.com/in/kpirabaharan/)
+
+---
+
+Feel free to customize and expand the readme based on your project's specific requirements. Include any additional sections such as testing, deployment instructions, or acknowledgments.

@@ -17,11 +17,12 @@ const Billboard = () => {
   }
 
   return (
-    <div className='group relative h-[56.25vw] max-h-[80vh]'>
+    <div className='group relative h-[42.86vw] min-h-[45vh] max-h-[80vh]'>
       <video
         className='w-full h-full object-cover brightness-75'
         autoPlay
         muted
+        loop
         poster={movie.thumbnailUrl}
         src={movie.videoUrl}
       />

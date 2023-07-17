@@ -118,8 +118,8 @@ const MovieList = ({ title, movies, count, rowSize }: MovieListProps) => {
           onMouseOver={() => setIsAnimate(true)}
           onMouseLeave={() => setIsAnimate(false)}
           className='h-[25vw] md:h-[18vw] lg:h-[13vw] 2xl:h-[9vw] w-12 
-          flex justify-center items-center group/item cursor-pointer
-          hover:bg-black/20 transition duration-300 absolute -left-12 top-0 z-20'
+          flex justify-center items-center group/item cursor-pointer top-0 z-20
+          hover:bg-black/20 transition duration-300 absolute -left-4 sm:-left-12'
         >
           <FaChevronLeft
             size={40}
@@ -135,8 +135,8 @@ const MovieList = ({ title, movies, count, rowSize }: MovieListProps) => {
           onMouseOver={() => setIsAnimate(true)}
           onMouseLeave={() => setIsAnimate(false)}
           className='h-[25vw] md:h-[18vw] lg:h-[13vw] 2xl:h-[9vw] w-12  
-          flex justify-center items-center group/item cursor-pointer
-          hover:bg-black/20 transition duration-300 absolute -right-12 top-0 z-20'
+          flex justify-center items-center group/item cursor-pointer top-0 z-20
+          hover:bg-black/20 transition duration-300 absolute -right-4 sm:-right-12'
         >
           <FaChevronRight
             size={40}

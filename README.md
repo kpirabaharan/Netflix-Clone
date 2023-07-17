@@ -32,11 +32,13 @@ You can access the live demo of the app at [https://netflix-clone-kpirabaharan.v
 
 ## Screenshots
 
-Include relevant screenshots of the app to showcase its design and features.
+### Home Page
 
-![Screenshot 1](./screenshots/screenshot1.png)
+![Home Page](./screenshots/homepage.png)
 
-![Screenshot 2](./screenshots/screenshot2.png)
+### Info Modal
+
+![Info Modal](./screenshots/modal.png)
 
 ## License
 

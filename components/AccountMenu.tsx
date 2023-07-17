@@ -1,8 +1,10 @@
 'use client';
 
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 import { PiSignOutBold } from 'react-icons/pi';
+import { AiOutlineUserSwitch } from 'react-icons/ai';
 
 import useCurrentUser from '@/hooks/useCurrentUser';
 
@@ -11,6 +13,7 @@ interface AccountMenuProps {
 }
 
 const AccountMenu = ({ visible }: AccountMenuProps) => {
+  const router = useRouter();
   const { user } = useCurrentUser();
 
   if (!visible) {
@@ -33,6 +36,18 @@ const AccountMenu = ({ visible }: AccountMenuProps) => {
           />
           <p className='text-white text-sm group-hover/item:underline'>
             {user?.name}
+          </p>
+        </div>
+        <div
+          onClick={() => router.push('/profiles')}
+          className='flex flex-row justify-center gap-x-2 pt-4 group/item'
+        >
+          <AiOutlineUserSwitch size={24} className='text-white' />
+          <p
+            className='text-white text-sm hover:underline leading-6 
+            group-hover/item:underline'
+          >
+            Switch Profiles
           </p>
         </div>
         <hr className='bg-gray-600 border-0 h-px my-4' />

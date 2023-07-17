@@ -54,7 +54,10 @@ const FavoriteButton = ({ movieId }: FavoriteButtonProps) => {
       className='cursor-pointer group/item w-8 h-8 rounded-full 
       border-2 flex justify-center items-center transition duration border-white 
       bg-transparent hover:bg-white'
-      onClick={toggleFavorite}
+      onClick={(e) => {
+        e.stopPropagation();
+        toggleFavorite();
+      }}
     >
       <Icon
         className='group-hover/item:text-black transition duration text-white'

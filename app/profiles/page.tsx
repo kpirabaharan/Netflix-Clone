@@ -5,6 +5,8 @@ import { authOptions } from '@/lib/auth';
 
 import Avatar from '@/components/Avatar';
 
+export const revalidate = 0;
+
 const ProfilePage = async () => {
   const session = await getServerSession(authOptions);
 

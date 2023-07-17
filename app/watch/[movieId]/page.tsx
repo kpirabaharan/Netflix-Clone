@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import { useParams, useRouter } from 'next/navigation';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
@@ -17,6 +17,14 @@ const Watch = () => {
   const mouseMoving = useMousePosition();
 
   const { movie }: { movie: Movie } = useMovie(movieId);
+
+  useEffect(() => {
+    setIsPlaying(true);
+
+    return () => {
+      setIsPlaying(false);
+    };
+  }, []);
 
   if (!movie) {
     return null;
@@ -51,9 +59,8 @@ const Watch = () => {
         url={movie.videoUrl}
         height={'100%'}
         width={'100%'}
-        playing={true}
+        playing={isPlaying}
         controls={true}
-        onReady={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
         onPlay={() => {
           setIsPlaying(true);

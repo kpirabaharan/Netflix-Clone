@@ -6,9 +6,9 @@ import { motion } from 'framer-motion';
 import { Movie } from '@/types';
 import useInfoModal from '@/hooks/useInfoModal';
 
-import FavoriteButton from './Buttons/FavoriteButton';
-import PlayIcon from './IconButtons/PlayIcon';
-import MoreIcon from './IconButtons/MoreIcon';
+import FavoriteButton from '@/components/Buttons/FavoriteButton';
+import PlayIcon from '@/components/IconButtons/PlayIcon';
+import MoreIcon from '@/components/IconButtons/MoreIcon';
 
 interface MovieCardProps {
   movie: Movie;

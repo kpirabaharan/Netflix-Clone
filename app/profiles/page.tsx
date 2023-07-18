@@ -1,17 +1,16 @@
 import { redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth';
-
-import { authOptions } from '@/lib/auth';
+import { User } from '@/types';
 
 import Avatar from '@/components/Avatar';
+import getCurrentUser from '@/actions/getCurrentUser';
 
 export const revalidate = 0;
 
 const ProfilePage = async () => {
-  const session = await getServerSession(authOptions);
+  const user = (await getCurrentUser()) as User;
 
-  if (!session || !session?.user) {
-    redirect('/auth');
+  if (!user) {
+    return redirect('/auth');
   }
 
   return (
@@ -21,7 +20,7 @@ const ProfilePage = async () => {
           Who is watching?
         </h1>
         <div className='flex flex-row items-center justify-center gap-8 mt-10'>
-          <Avatar name={session.user.name as string} />
+          <Avatar name={user?.name as string} />
         </div>
       </div>
     </div>

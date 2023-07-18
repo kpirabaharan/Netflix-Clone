@@ -7,3 +7,11 @@ export interface Movie {
   genre: string;
   duration: string;
 }
+
+export interface User {
+  id: string;
+  name: string;
+  image: string;
+  email: string;
+  favoriteIds: string[];
+}

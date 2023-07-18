@@ -6,7 +6,7 @@ const useCurrentUser = () => {
   const { data, error, isLoading, mutate } = useSWR('/api/current', fetcher);
 
   return {
-    user: data?.user,
+    user: data,
     error,
     isLoading,
     mutate,

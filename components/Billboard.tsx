@@ -51,16 +51,15 @@ const Billboard = () => {
       </div>
 
       {/* Large and Screens */}
-      <div className='absolute hidden lg:inline bottom-[20%] ml-16'>
+      <div className='absolute hidden lg:inline bottom-[15%] ml-16'>
         <p
-          className='text-white text-xl md:text-5xl h-full w-[50%] lg:text-6xl 
+          className='text-white h-full w-[50%] lg:text-5xl xl:text-6xl 
           font-bold drop-shadow-xl transition duration-500'
         >
           {movie.title}
         </p>
         <p
-          className='text-white text-lg mt-3 md:mt-8 w-[90%] md:w-[80%] lg:w-[50%] 
-          line-clamp-5'
+          className='text-white text-base xl:text-lg mt-4 w-[50%] line-clamp-4'
         >
           {movie.description}
         </p>

@@ -1,8 +1,9 @@
 import { redirect } from 'next/navigation';
+
 import { User } from '@/types';
+import getCurrentUser from '@/actions/getCurrentUser';
 
 import Avatar from '@/components/Avatar';
-import getCurrentUser from '@/actions/getCurrentUser';
 
 export const revalidate = 0;
 

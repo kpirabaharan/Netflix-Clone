@@ -2,6 +2,7 @@
 
 import axios from 'axios';
 import { useCallback, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 import { AiOutlinePlus, AiOutlineCheck } from 'react-icons/ai';
 import { toast } from 'react-hot-toast';
 
@@ -15,6 +16,7 @@ interface FavoriteButtonProps {
 
 const FavoriteButton = ({ movieId }: FavoriteButtonProps) => {
   const isMediumScreens = useMediaQuery('(max-width: 1023px)');
+  const router = useRouter();
 
   const { mutate: mutateFavorites } = useFavorites();
   const { user: currentUser, mutate } = useCurrentUser();
@@ -44,8 +46,9 @@ const FavoriteButton = ({ movieId }: FavoriteButtonProps) => {
       });
 
       mutateFavorites();
+      router.refresh();
     }
-  }, [movieId, isFavorite, currentUser, mutate, mutateFavorites]);
+  }, [movieId, isFavorite, currentUser, mutate, mutateFavorites, router]);
 
   const Icon = isFavorite ? AiOutlineCheck : AiOutlinePlus;
 

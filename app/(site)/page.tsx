@@ -4,12 +4,10 @@ import { User, Movie } from '@/types';
 import getCurrentUser from '@/actions/getCurrentUser';
 import getMovies from '@/actions/getMovies';
 import getFavoriteMovies from '@/actions/getFavoriteMovies';
-import useFavorites from '@/hooks/useFavorites';
-import useMovieList from '@/hooks/useMovieList';
+import getBillboard from '@/actions/getBillboard';
 
 import Navbar from '@/components/Navbar';
 import Billboard from '@/components/Billboard';
-import MovieList from '@/components/MovieList';
 import PageContent from '@/app/(site)/components/PageContent';
 
 export const revalidate = 0;
@@ -29,10 +27,12 @@ const HomePage = async () => {
   const favoriteMovies = responseFavorite?.favoriteMovies as Movie[];
   const favoriteCount = response?.count as number;
 
+  const randomMovie = (await getBillboard()) as Movie;
+
   return (
     <div>
       <Navbar />
-      <Billboard />
+      <Billboard movie={randomMovie} />
       <PageContent
         movies={movies}
         count={count}

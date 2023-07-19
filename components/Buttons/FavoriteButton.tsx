@@ -1,7 +1,7 @@
 'use client';
 
 import axios from 'axios';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { AiOutlinePlus, AiOutlineCheck } from 'react-icons/ai';
 import { toast } from 'react-hot-toast';
@@ -27,7 +27,7 @@ const FavoriteButton = ({ movieId }: FavoriteButtonProps) => {
     return list.includes(movieId);
   }, [currentUser, movieId]);
 
-  const toggleFavorite = useCallback(async () => {
+  const toggleFavorite = async () => {
     let response;
 
     if (isFavorite) {
@@ -48,7 +48,7 @@ const FavoriteButton = ({ movieId }: FavoriteButtonProps) => {
       mutateFavorites();
       router.refresh();
     }
-  }, [movieId, isFavorite, currentUser, mutate, mutateFavorites, router]);
+  };
 
   const Icon = isFavorite ? AiOutlineCheck : AiOutlinePlus;
 

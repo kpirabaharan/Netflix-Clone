@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { Movie } from '@/types';
 import useMediaQuery from '@/hooks/useMediaQuery';
 
-import MovieList from '@/components/MovieList';
+import MovieList from '@/app/(site)/components/MovieList';
 
 interface PageContentProps {
   movies: Movie[];

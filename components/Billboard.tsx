@@ -2,19 +2,16 @@
 
 import { Movie } from '@/types';
 import useInfoModal from '@/hooks/useInfoModal';
-import useBillboard from '@/hooks/useBillboard';
 
 import PlayButton from '@/components/Buttons/PlayButton';
 import MoreInfoButton from '@/components/MoreInfoButton';
 
-const Billboard = () => {
+interface BillboardProps {
+  movie: Movie;
+}
+
+const Billboard = ({ movie }: BillboardProps) => {
   const { onOpen } = useInfoModal();
-
-  const { movie }: { movie: Movie } = useBillboard();
-
-  if (!movie) {
-    return null;
-  }
 
   return (
     <div className='group relative h-[42.86vw] min-h-[45vh] max-h-[80vh]'>
@@ -58,9 +55,7 @@ const Billboard = () => {
         >
           {movie.title}
         </p>
-        <p
-          className='text-white text-base xl:text-lg mt-4 w-[50%] line-clamp-4'
-        >
+        <p className='text-white text-base xl:text-lg mt-4 w-[50%] line-clamp-4'>
           {movie.description}
         </p>
         <div className='flex flex-row items-center mt-3 md:mt-4 gap-3'>

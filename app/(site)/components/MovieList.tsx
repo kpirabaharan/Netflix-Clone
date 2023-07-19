@@ -7,7 +7,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 import { Movie } from '@/types';
 
-import MovieCard from '@/components/MovieCard';
+import MovieCard from '@/app/(site)/components/MovieCard';
 
 interface MovieListProps {
   movies: Movie[];

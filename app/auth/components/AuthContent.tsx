@@ -34,9 +34,10 @@ const AuthContent = () => {
         password,
         callbackUrl: '/profiles',
       });
-      setIsLoading(false);
     } catch (err) {
       console.log((err as Error).message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -109,9 +110,10 @@ const AuthContent = () => {
 
         <div className='flex flex-col gap-y-4 mt-8'>
           <div
-            onClick={() => {
+            onClick={async () => {
               setIsLoading(true);
-              return signIn('google', { callbackUrl: '/profiles' });
+              await signIn('google', { callbackUrl: '/profiles' });
+              setIsLoading(false);
             }}
             className={`flex flex-row gap-x-4 pl-4 bg-neutral-200 hover:bg-opacity-80 rounded-md py-2 
             items-center ${
@@ -128,9 +130,10 @@ const AuthContent = () => {
             )}
           </div>
           <div
-            onClick={() => {
+            onClick={async () => {
               setIsLoading(true);
-              return signIn('github', { callbackUrl: '/profiles' });
+              await signIn('github', { callbackUrl: '/profiles' });
+              setIsLoading(false);
             }}
             className={`flex flex-row gap-x-4 pl-4 bg-neutral-200 hover:bg-opacity-80 rounded-md py-2 
             items-center ${

@@ -25,7 +25,7 @@ const HomePage = async () => {
 
   const responseFavorite = await getFavoriteMovies();
   const favoriteMovies = responseFavorite?.favoriteMovies as Movie[];
-  const favoriteCount = response?.count as number;
+  const favoriteCount = responseFavorite?.count as number;
 
   const randomMovie = (await getBillboard()) as Movie;
 

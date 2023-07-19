@@ -9,7 +9,7 @@ import { Movie } from '@/types';
 import useMousePosition from '@/hooks/useMousePosition';
 import useMovie from '@/hooks/useMovie';
 
-const Watch = () => {
+const WatchPage = () => {
   const { movieId } = useParams();
   const [isPlaying, setIsPlaying] = useState(false);
   const playerRef = useRef<ReactPlayer>(null);
@@ -70,4 +70,4 @@ const Watch = () => {
   );
 };
 
-export default Watch;
+export default WatchPage;

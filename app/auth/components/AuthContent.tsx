@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+import { signIn } from 'next-auth/react';
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
-import { signIn } from 'next-auth/react';
 import { toast } from 'react-hot-toast';
+import { PulseLoader } from 'react-spinners';
 
 import { postData } from '@/lib/helpers';
 
@@ -26,12 +27,14 @@ const AuthContent = () => {
   }, []);
 
   const login = async () => {
+    setIsLoading(true);
     try {
       await signIn('credentials', {
         email,
         password,
         callbackUrl: '/profiles',
       });
+      setIsLoading(false);
     } catch (err) {
       console.log((err as Error).message);
     }
@@ -95,32 +98,58 @@ const AuthContent = () => {
           className='bg-red-700 py-3 text-white rounded-md w-full mt-8 
           hover:bg-opacity-80 transition'
         >
-          {variant === 'login' ? 'Sign In' : 'Sign Up'}
+          <div className='flex justify-center items-center h-[24px]'>
+            {!isLoading ? (
+              <p>{variant === 'login' ? 'Sign In' : 'Sign Up'}</p>
+            ) : (
+              <PulseLoader color='#ffffff' size={10} />
+            )}
+          </div>
         </button>
 
         <div className='flex flex-col gap-y-4 mt-8'>
           <div
-            onClick={() => signIn('google', { callbackUrl: '/profiles' })}
+            onClick={() => {
+              setIsLoading(true);
+              return signIn('google', { callbackUrl: '/profiles' });
+            }}
             className={`flex flex-row gap-x-4 pl-4 bg-neutral-200 hover:bg-opacity-80 rounded-md py-2 
-            items-center ${isLoading ? 'cursor-progress' : 'cursor-pointer'}`}
+            items-center ${
+              isLoading ? 'cursor-progress' : 'cursor-pointer'
+            } relative`}
           >
             <FcGoogle size={30} />
-            <p className='font-semibold'>Continue with Google</p>
+            {!isLoading ? (
+              <p className='font-semibold'>Continue with Google</p>
+            ) : (
+              <div className='absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] flex items-center'>
+                <PulseLoader color='#ff0000' size={10} />
+              </div>
+            )}
           </div>
           <div
-            onClick={() => signIn('github', { callbackUrl: '/profiles' })}
+            onClick={() => {
+              setIsLoading(true);
+              return signIn('github', { callbackUrl: '/profiles' });
+            }}
             className={`flex flex-row gap-x-4 pl-4 bg-neutral-200 hover:bg-opacity-80 rounded-md py-2 
-            items-center ${isLoading ? 'cursor-progress' : 'cursor-pointer'}`}
+            items-center ${
+              isLoading ? 'cursor-progress' : 'cursor-pointer'
+            } relative`}
           >
             <FaGithub size={30} />
-            <p className='font-semibold'>Continue with Github</p>
+            {!isLoading ? (
+              <p className='font-semibold'>Continue with Github</p>
+            ) : (
+              <div className='absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] flex items-center'>
+                <PulseLoader color='#ff0000' size={10} />
+              </div>
+            )}
           </div>
         </div>
 
         <p className='text-neutral-500 mt-12 text-base'>
-          {variant === 'login'
-            ? 'New to Netflix?'
-            : 'Already have an account?'}
+          {variant === 'login' ? 'New to Netflix?' : 'Already have an account?'}
           <span
             onClick={toggleVariant}
             className='text-white ml-1 hover:underline cursor-pointer'

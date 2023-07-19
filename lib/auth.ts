@@ -6,6 +6,7 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { compare } from 'bcrypt';
 
 import prisma from '@/lib/prismadb';
+import { NextResponse } from 'next/server';
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -33,12 +34,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         try {
           if (!credentials?.email || !credentials?.password) {
-            // throw NextResponse.json({
-            //   message: 'Email and password required',
-            //   status: 401,
-            // });
             return null;
-            throw Error('Email and password required');
           }
 
           const user = await prisma.user.findUnique({
@@ -48,11 +44,7 @@ export const authOptions: NextAuthOptions = {
           });
 
           if (!user || !user.hashedPassword) {
-            // throw NextResponse.json({
-            //   message: 'Email does not exist',
-            //   status: 401,
-            // });
-            throw Error('Email does not exist');
+            return null;
           }
 
           const isCorrectPassword = await compare(
@@ -61,12 +53,7 @@ export const authOptions: NextAuthOptions = {
           );
 
           if (!isCorrectPassword) {
-            // throw NextResponse.json({
-            //   message: 'Incorrect password',
-            //   status: 401,
-            // });
             return null;
-            throw Error('Incorrect password');
           }
 
           return user;

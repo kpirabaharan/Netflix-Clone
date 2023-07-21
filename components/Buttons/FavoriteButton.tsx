@@ -46,8 +46,8 @@ const FavoriteButton = ({ movieId }: FavoriteButtonProps) => {
       });
 
       mutateFavorites();
-      router.refresh();
     }
+    router.refresh();
   };
 
   const Icon = isFavorite ? AiOutlineCheck : AiOutlinePlus;

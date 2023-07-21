@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 import { Movie } from '@/types';
@@ -35,12 +36,15 @@ const MovieCard = ({ movie }: MovieCardProps) => {
     <div
       onClick={() => onOpen(movie.id)}
       className='group col-span relative h-[25vw] md:h-[18vw] lg:h-[13vw] 2xl:h-[9vw] 
-      sm:hover:scale-125 sm:hover:translate-x-6 transition duration-300 cursor-pointer'
+      sm:hover:scale-[115%] sm:hover:translate-x-6 transition duration-300 cursor-pointer
+      hover:z-20'
     >
-      <img
+      <Image
         className='object-cover transition duration shadow-xl rounded-md w-full h-full'
         src={movie.thumbnailUrl}
         alt='Thumbnail'
+        fill
+        sizes='100vw'
       />
 
       {/* Hover Div */}

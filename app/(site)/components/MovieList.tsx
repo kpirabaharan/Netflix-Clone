@@ -1,8 +1,7 @@
 'use client';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { isEmpty } from 'lodash';
-import { AnimatePresence, motion } from 'framer-motion';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 import { Movie } from '@/types';
@@ -20,22 +19,11 @@ const MovieList = ({ title, movies, count, rowSize }: MovieListProps) => {
   const [numberOfRows, setNumberOfRows] = useState(1);
   const [row, setRow] = useState(0);
 
-  const [initial, setInitial] = useState<{ x: string }>({ x: '630%' });
-  const [animate, setAnimate] = useState<{ x: number }>({ x: 0 });
-  const [exit, setExit] = useState<{ x: string }>({ x: '-630%' });
-
-  const [rightSize, setRightSize] = useState<{ x: string }>({ x: '630%' });
-  const [leftSize, setLeftSize] = useState<{ x: string }>({ x: '-630%' });
-
-  const [isAnimate, setIsAnimate] = useState(false);
-
   useEffect(() => {
     setNumberOfRows(Math.ceil(count / rowSize));
     if (row === numberOfRows) {
       setRow(numberOfRows - 1);
     }
-    setRightSize({ x: `${rowSize * 100 + 30}%` });
-    setLeftSize({ x: `${-rowSize * 100 - 30}%` });
   }, [count, rowSize, numberOfRows, row]);
 
   const incrementRow = () => {
@@ -45,18 +33,6 @@ const MovieList = ({ title, movies, count, rowSize }: MovieListProps) => {
   const decrementRow = () => {
     setRow((val) => val - 1);
   };
-
-  const nextTransition = useCallback(() => {
-    setInitial(rightSize);
-    setAnimate({ x: 0 });
-    setExit(leftSize);
-  }, [rightSize, leftSize]);
-
-  const previousTransition = useCallback(() => {
-    setInitial(leftSize);
-    setAnimate({ x: 0 });
-    setExit(rightSize);
-  }, [leftSize, rightSize]);
 
   const isDisabledLeft = row === 0;
   const isDisabledRight = row === numberOfRows - 1;
@@ -86,37 +62,14 @@ const MovieList = ({ title, movies, count, rowSize }: MovieListProps) => {
           className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 
             gap-2 grid-rows-1 h-[25vw] md:h-[18vw] lg:h-[13vw] 2xl:h-[9vw]'
         >
-          <AnimatePresence>
-            {displayedMovies.map((movie) => {
-              // console.log(movie.title);
-              return (
-                <motion.div
-                  className='hover:z-20'
-                  key={movie.id}
-                  initial={isAnimate ? initial : false}
-                  animate={animate}
-                  exit={exit}
-                  transition={
-                    isAnimate
-                      ? {
-                          duration: 1,
-                        }
-                      : { duration: 0.01 }
-                  }
-                >
-                  <MovieCard movie={movie} />
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
+          {displayedMovies.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
         </div>
 
         {/* Left Arrow */}
         <div
           onClick={!isDisabledLeft ? () => decrementRow() : () => {}}
-          onMouseEnter={() => previousTransition()}
-          onMouseOver={() => setIsAnimate(true)}
-          onMouseLeave={() => setIsAnimate(false)}
           className='h-[25vw] md:h-[18vw] lg:h-[13vw] 2xl:h-[9vw] w-12 
           flex justify-center items-center group/item cursor-pointer top-0 z-20
           hover:bg-black/20 transition duration-300 absolute -left-4 sm:-left-12'
@@ -131,9 +84,6 @@ const MovieList = ({ title, movies, count, rowSize }: MovieListProps) => {
         {/* Right Arrow */}
         <div
           onClick={!isDisabledRight ? () => incrementRow() : () => {}}
-          onMouseEnter={() => nextTransition()}
-          onMouseOver={() => setIsAnimate(true)}
-          onMouseLeave={() => setIsAnimate(false)}
           className='h-[25vw] md:h-[18vw] lg:h-[13vw] 2xl:h-[9vw] w-12  
           flex justify-center items-center group/item cursor-pointer top-0 z-20
           hover:bg-black/20 transition duration-300 absolute -right-4 sm:-right-12'

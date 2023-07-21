@@ -48,12 +48,14 @@ const PageContent = ({
         rowSize={numberOfMovies}
       />
 
-      <MovieList
-        title='My List'
-        movies={favoriteMovies}
-        count={favoriteCount}
-        rowSize={numberOfMovies}
-      />
+      {favoriteCount > 0 && (
+        <MovieList
+          title='My List'
+          movies={favoriteMovies}
+          count={favoriteCount}
+          rowSize={numberOfMovies}
+        />
+      )}
     </div>
   );
 };

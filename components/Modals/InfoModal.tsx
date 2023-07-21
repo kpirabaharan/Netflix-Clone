@@ -38,7 +38,7 @@ const InfoModal = () => {
   return (
     <Root open={isOpen} defaultOpen={isOpen} onOpenChange={onChange}>
       <Portal>
-        <Overlay className='bg-neutral-900/90 backdrop-blur-sm fixed inset-0 z-30' />
+        <Overlay className='bg-neutral-900/90 fixed inset-0 z-30' />
         <Content>
           <div
             className='fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] 
@@ -91,7 +91,7 @@ const InfoModal = () => {
                       animate={{ y: 0, opacity: 1 }}
                       transition={{
                         duration: 0.3,
-                        delay: 0.4,
+                        delay: 0.3,
                       }}
                     >
                       {movie.description}
@@ -103,7 +103,7 @@ const InfoModal = () => {
                       animate={{ y: 0, opacity: 1 }}
                       transition={{
                         duration: 0.3,
-                        delay: 0.6,
+                        delay: 0.4,
                       }}
                     >
                       Info on
@@ -116,7 +116,7 @@ const InfoModal = () => {
                         animate={{ y: 0, opacity: 1 }}
                         transition={{
                           duration: 0.3,
-                          delay: 0.8,
+                          delay: 0.5,
                         }}
                       >
                         Genre:
@@ -128,7 +128,7 @@ const InfoModal = () => {
                         animate={{ y: 0, opacity: 1 }}
                         transition={{
                           duration: 0.3,
-                          delay: 1,
+                          delay: 0.6,
                         }}
                       >
                         Duration:

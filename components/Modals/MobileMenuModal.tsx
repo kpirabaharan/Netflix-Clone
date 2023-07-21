@@ -22,7 +22,7 @@ const MobileMenuModal = () => {
           z-40 border-none h-[80%]'
         >
           <div
-            className='h-full flex flex-col items-center justify-evenly'
+            className='h-full flex flex-col items-center justify-evenly border-none'
             onClick={() => onChange(false)}
           >
             <p className='text-white text-sm sm:text-xl shadow-xl cursor-pointer'>

@@ -1,164 +1,83 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { Root, Portal, Overlay, Content, Close } from '@radix-ui/react-dialog';
+import { useCallback, useEffect, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 
-import { Movie } from '@/types';
-import useInfoModal from '@/hooks/useInfoModal';
 import useMovie from '@/hooks/useMovie';
 
 import PlayButton from '@/components/Buttons/PlayButton';
 import FavoriteButton from '@/components/Buttons/FavoriteButton';
+import useInfoModalStore from '@/hooks/useInfoModal';
 
-const InfoModal = () => {
-  const { isOpen, onClose, movieId } = useInfoModal();
-  const [isShown, setIsShown] = useState(false);
+interface InfoModalProps {
+  visible: boolean;
+  onClose: any;
+}
 
-  const { movie }: { movie: Movie } = useMovie(movieId);
+const InfoModal = ({ visible, onClose }: InfoModalProps) => {
+  const [isVisible, setIsVisible] = useState<boolean>(visible);
 
-  const onChange = (open: boolean) => {
-    if (!open) {
-      setIsShown(false);
-      setTimeout(() => {
-        onClose();
-      }, 600);
-    }
-  };
+  const { movieId } = useInfoModalStore();
+  const { movie = {} } = useMovie(movieId);
 
   useEffect(() => {
-    if (isOpen) setIsShown(true);
-  }, [isOpen]);
+    setIsVisible(!!visible);
+  }, [visible]);
 
-  if (!movie) {
+  const handleClose = useCallback(() => {
+    setIsVisible(false);
+    setTimeout(() => {
+      onClose();
+    }, 300);
+  }, [onClose]);
+
+  if (!visible) {
     return null;
   }
 
   return (
-    <Root open={isOpen} defaultOpen={isOpen} onOpenChange={onChange}>
-      <Portal>
-        <Overlay className='bg-neutral-900/90 backdrop-blur-sm fixed inset-0 z-30' />
-        <Content>
-          <div
-            className='fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] 
-            mx-auto w-[90%] md:w-[80%] max-w-3xl z-50'
-          >
-            <AnimatePresence>
-              {isShown && (
-                <motion.div
-                  key='modal'
-                  className='h-full w-full'
-                  initial={{ y: '100%', opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: '100%', opacity: 0 }}
-                  transition={{
-                    duration: 0.5,
-                  }}
-                >
-                  <div className='relative h-96'>
-                    <video
-                      className='w-full brightness-[70%] object-cover h-full'
-                      src={movie.videoUrl}
-                      poster={movie.thumbnailUrl}
-                      autoPlay
-                      loop
-                      muted
-                    />
-                    <div className='absolute bottom-[10%] left-10'>
-                      <div className='flex flex-row gap-4 items-center'>
-                        <PlayButton movieId={movie.id} />
-                        <FavoriteButton movieId={movie.id} />
-                      </div>
-                    </div>
-                  </div>
-                  <div className='p-8 bg-zinc-900'>
-                    <motion.p
-                      className='text-white text-2xl md:text-3xl lg:text-4xl h-full 
-                  font-bold mb-2'
-                      initial={{ y: '100%', opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{
-                        duration: 0.3,
-                        delay: 0.2,
-                      }}
-                    >
-                      {movie.title}
-                    </motion.p>
-                    <motion.p
-                      className='text-white'
-                      initial={{ y: '100%', opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{
-                        duration: 0.3,
-                        delay: 0.4,
-                      }}
-                    >
-                      {movie.description}
-                    </motion.p>
-                    <hr className='bg-neutral-200 border-0 h-px my-4' />
-                    <motion.p
-                      className='text-white text-lg pb-4'
-                      initial={{ y: '100%', opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{
-                        duration: 0.3,
-                        delay: 0.6,
-                      }}
-                    >
-                      Info on
-                      <span className='font-bold'> {movie.title}</span>
-                    </motion.p>
-                    <div className='flex flex-col gap-y-1'>
-                      <motion.p
-                        className='text-neutral-500 text-sm'
-                        initial={{ y: '100%', opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{
-                          duration: 0.3,
-                          delay: 0.8,
-                        }}
-                      >
-                        Genre:
-                        <span className='text-white'> {movie.genre}</span>
-                      </motion.p>
-                      <motion.p
-                        className='text-neutral-500 text-sm'
-                        initial={{ y: '100%', opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{
-                          duration: 0.3,
-                          delay: 1,
-                        }}
-                      >
-                        Duration:
-                        <span className='text-white'> {movie.duration}</span>
-                      </motion.p>
-                    </div>
-                  </div>
-
-                  <Close asChild>
-                    <button
-                      className='absolute top-3 right-3 inline-flex h-10 w-10 rounded-full
-                 bg-black appearance-none items-center justify-center focus:outline-none
-                  border hover:border-opacity-70 border-white transition duration
-                  group/item'
-                      onClick={() => {}}
-                    >
-                      <IoMdClose
-                        size={25}
-                        className='text-white transition duration 
-                    group-hover/item:text-opacity-70'
-                      />
-                    </button>
-                  </Close>
-                </motion.div>
-              )}
-            </AnimatePresence>
+    <div className='z-50 transition duration-300 bg-black bg-opacity-80 flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0'>
+      <div className='relative w-auto mx-auto max-w-3xl rounded-md overflow-hidden'>
+        <div
+          className={`${
+            isVisible ? 'scale-100' : 'scale-0'
+          } transform duration-300 relative flex-auto bg-zinc-900 drop-shadow-md`}
+        >
+          <div className='relative h-96'>
+            <video
+              poster={movie?.thumbnailUrl}
+              autoPlay
+              muted
+              loop
+              src={movie?.videoUrl}
+              className='w-full brightness-[60%] object-cover h-full'
+            />
+            <div
+              onClick={handleClose}
+              className='cursor-pointer absolute top-3 right-3 h-10 w-10 rounded-full bg-black bg-opacity-70 flex items-center justify-center'
+            >
+              <IoMdClose className='text-white w-6' />
+            </div>
+            <div className='absolute bottom-[10%] left-10'>
+              <p className='text-white text-3xl md:text-4xl h-full lg:text-5xl font-bold mb-8'>
+                {movie?.title}
+              </p>
+              <div className='flex flex-row gap-4 items-center'>
+                <PlayButton movieId={movie?.id} />
+                <FavoriteButton movieId={movie?.id} />
+              </div>
+            </div>
           </div>
-        </Content>
-      </Portal>
-    </Root>
+
+          <div className='px-12 py-8'>
+            <div className='flex flex-row items-center gap-2 mb-8'>
+              <p className='text-green-400 font-semibold text-lg'>New</p>
+              <p className='text-white text-lg'>{movie?.duration}</p>
+              <p className='text-white text-lg'>{movie?.genre}</p>
+            </div>
+            <p className='text-white text-lg'>{movie?.description}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

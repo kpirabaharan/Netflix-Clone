@@ -13,7 +13,6 @@ import { postData } from '@/lib/helpers';
 import Input from '@/components/Input';
 
 const AuthContent = () => {
-  // const router = useRouter();
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');

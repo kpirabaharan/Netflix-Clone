@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is a Netflix clone web app created using Next.js, a React framework for server-side rendering and building modern web applications. The app replicates the core functionalities of Netflix, allowing users to browse and stream movies and TV shows. The app utilizes Framer Motion for smooth animations and transitions. User authentication is implemented using NextAuth with Google and GitHub providers. The app uses MongoDB as the database for storing data.
+This is a Netflix clone web app created using Next.js, a React framework for server-side rendering and building modern web applications. The app replicates the core functionalities of Netflix, allowing users to browse and stream movies and TV shows. The app utilizes Framer Motion for smooth animations and transitions. User authentication is implemented using NextAuth with Google and GitHub providers. The app uses MongoDB as the database and S3 to store trailers and images.
 
 ## Features
 
@@ -12,6 +12,10 @@ This is a Netflix clone web app created using Next.js, a React framework for ser
 - Movie Details: Users can view detailed information about a specific movie or TV show.
 - Watchlist: Users can add movies and TV shows to their watchlist for later viewing.
 - Responsive Design: The app is optimized for various screen sizes and devices.
+
+## AWS S3 Storage
+
+The app utilizes AWS S3 storage to securely store videos and thumbnail images. This ensures high availability and reliability for streaming content.
 
 ## Demo
 
@@ -28,6 +32,7 @@ You can access the live demo of the app at [https://netflix-clone-kpirabaharan.v
 - NextAuth: Authentication library for Next.js applications
 - Google and GitHub providers: Authentication providers for NextAuth
 - MongoDB: Database for storing app data
+- AWS S3: Storage service for storing videos and thumbnail images
 - Tailwind CSS: Utility-first CSS framework for styling
 
 ## Screenshots
@@ -56,5 +61,3 @@ If you have any questions or suggestions, please feel free to reach out to us:
 - LinkedIn: [https://linkedin.com/in/kpirabaharan/](https://linkedin.com/in/kpirabaharan/)
 
 ---
-
-Feel free to customize and expand the readme based on your project's specific requirements. Include any additional sections such as testing, deployment instructions, or acknowledgments.

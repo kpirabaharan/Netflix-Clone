@@ -1,7 +1,7 @@
 import prisma from '@/lib/prismadb';
 import getCurrentUser from '@/actions/getCurrentUser';
 
-import { sortBy } from 'lodash';
+import { orderBy } from 'lodash';
 
 const getMovies = async () => {
   try {
@@ -12,7 +12,7 @@ const getMovies = async () => {
     }
 
     const movies = await prisma.movie.findMany();
-    const formattedMovies = sortBy(movies, 'createdAt').reverse();
+    const formattedMovies = orderBy(movies, 'createdAt', 'desc');
 
     const count = await prisma.movie.count();
 

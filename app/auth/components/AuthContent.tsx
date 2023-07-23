@@ -98,10 +98,12 @@ const AuthContent = () => {
           <button
             disabled={isLoading}
             onClick={variant === 'login' ? login : register}
-            className='bg-red-700 py-3 text-white rounded-md w-full 
-            hover:bg-opacity-80 transition'
+            className={`bg-red-700 py-3 text-white rounded-md w-full h-[46px]
+            hover:bg-opacity-80 transition ${
+              isLoading ? 'cursor-progress' : 'cursor-pointer'
+            } relative`}
           >
-            <div className='flex justify-center items-center h-[24px]'>
+            <div className='flex justify-center items-center'>
               {!isLoading ? (
                 <p>{variant === 'login' ? 'Sign In' : 'Sign Up'}</p>
               ) : (
@@ -120,16 +122,17 @@ const AuthContent = () => {
                 });
                 setIsLoading(false);
               }}
-              className={`flex flex-row gap-x-4 bg-red-700 hover:bg-opacity-80 rounded-md py-2 
-            items-center justify-center transition ${
-              isLoading ? 'cursor-progress' : 'cursor-pointer'
-            } relative`}
+              className={`flex flex-row gap-x-4 bg-red-700 hover:bg-opacity-80 
+              rounded-md py-2 items-center justify-center transition h-[46px] 
+              ${isLoading ? 'cursor-progress' : 'cursor-pointer'} relative`}
             >
-              <BsIncognito size={30} className='text-white' />
               {!isLoading ? (
-                <p className='text-white'>Sign in Anonymously</p>
+                <>
+                  <BsIncognito size={30} className='text-white' />
+                  <p className='text-white'>Sign in Anonymously</p>
+                </>
               ) : (
-                <PulseLoader color='#ff0000' size={10} />
+                <PulseLoader color='#ffffff' size={10} />
               )}
             </div>
           )}
@@ -142,14 +145,15 @@ const AuthContent = () => {
                 await signIn('google', { callbackUrl: '/profiles' });
                 setIsLoading(false);
               }}
-              className={`flex flex-row gap-x-4 bg-neutral-200 hover:bg-opacity-80 rounded-md py-2 
-            items-center justify-center transition  ${
-              isLoading ? 'cursor-progress' : 'cursor-pointer'
-            } relative`}
+              className={`flex flex-row gap-x-4 bg-neutral-200 hover:bg-opacity-80 
+              rounded-md py-2 items-center justify-center transition h-[46px] 
+              ${isLoading ? 'cursor-progress' : 'cursor-pointer'} relative`}
             >
-              <FcGoogle size={30} />
               {!isLoading ? (
-                <p className='font-semibold'>Continue with Google</p>
+                <>
+                  <FcGoogle size={30} />
+                  <p className='font-semibold'>Continue with Google</p>
+                </>
               ) : (
                 <PulseLoader color='#ff0000' size={10} />
               )}
@@ -160,14 +164,15 @@ const AuthContent = () => {
                 await signIn('github', { callbackUrl: '/profiles' });
                 setIsLoading(false);
               }}
-              className={`flex flex-row gap-x-4 bg-neutral-200 hover:bg-opacity-80 rounded-md py-2 
-            items-center justify-center transition ${
-              isLoading ? 'cursor-progress' : 'cursor-pointer'
-            } relative`}
+              className={`flex flex-row gap-x-4 bg-neutral-200 hover:bg-opacity-80 
+              rounded-md py-2 items-center justify-center transition h-[46px] 
+              ${isLoading ? 'cursor-progress' : 'cursor-pointer'} relative`}
             >
-              <FaGithub size={30} className='text-black' />
               {!isLoading ? (
-                <p className='font-semibold'>Continue with Github</p>
+                <>
+                  <FaGithub size={30} className='text-black' />
+                  <p className='font-semibold'>Continue with Github</p>
+                </>
               ) : (
                 <PulseLoader color='#ff0000' size={10} />
               )}

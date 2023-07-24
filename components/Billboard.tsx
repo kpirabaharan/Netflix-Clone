@@ -30,8 +30,8 @@ const Billboard = ({ movie }: BillboardProps) => {
 
       {/* Mobile to Medium Screens */}
       <div
-        className='absolute flex flex-col gap-y-2 md:gap-y-4 lg:hidden bottom-[5%] left-0 w-full 
-        items-center'
+        className='absolute flex flex-col gap-y-2 md:gap-y-4 lg:hidden bottom-[5%] 
+        left-0 w-full items-center text-center'
       >
         <p className='text-white text-3xl md:text-5xl font-bold'>
           {movie.title}

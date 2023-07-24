@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Root, Portal, Overlay, Content, Close } from '@radix-ui/react-dialog';
 import { IoMdClose } from 'react-icons/io';
+import { BiVolumeFull, BiVolumeMute } from 'react-icons/bi';
 
 import { Movie } from '@/types';
 import useInfoModal from '@/hooks/useInfoModal';
@@ -15,6 +16,7 @@ import FavoriteButton from '@/components/Buttons/FavoriteButton';
 const InfoModal = () => {
   const { isOpen, onClose, movieId } = useInfoModal();
   const [isShown, setIsShown] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
 
   const { movie }: { movie: Movie } = useMovie(movieId);
 
@@ -63,12 +65,27 @@ const InfoModal = () => {
                       poster={movie.thumbnailUrl}
                       autoPlay
                       loop
-                      muted
+                      muted={isMuted}
                     />
-                    <div className='absolute bottom-[10%] left-10'>
-                      <div className='flex flex-row gap-4 items-center'>
-                        <PlayButton movieId={movie.id} />
-                        <FavoriteButton movieId={movie.id} />
+                    <div className='absolute bottom-[10%] left-[5%] w-[90%]'>
+                      <div className='flex flex-row gap-4 justify-between w-full items-center'>
+                        <div className='flex flex-row items-center gap-x-4'>
+                          <PlayButton movieId={movie.id} />
+                          <FavoriteButton movieId={movie.id} />
+                        </div>
+                        {isMuted ? (
+                          <BiVolumeMute
+                            className='text-white cursor-pointer'
+                            size={30}
+                            onClick={() => setIsMuted(false)}
+                          />
+                        ) : (
+                          <BiVolumeFull
+                            className='text-white cursor-pointer'
+                            size={30}
+                            onClick={() => setIsMuted(true)}
+                          />
+                        )}
                       </div>
                     </div>
                   </div>

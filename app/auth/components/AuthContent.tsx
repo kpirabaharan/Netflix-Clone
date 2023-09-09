@@ -93,7 +93,7 @@ const AuthContent = () => {
           />
         </div>
 
-        <div className='flex flex-col gap-y-4 mt-8'>
+        <div className='mt-8'>
           <button
             disabled={isLoading}
             onClick={variant === 'login' ? login : register}
@@ -110,32 +110,37 @@ const AuthContent = () => {
               )}
             </div>
           </button>
-          {variant === 'login' && (
-            <div
-              onClick={async () => {
-                setIsLoading(true);
-                await signIn('credentials', {
-                  email: 'test@test.com',
-                  password: 'Password123',
-                  callbackUrl: '/profiles',
-                });
-                setIsLoading(false);
-              }}
-              className={`flex flex-row gap-x-4 bg-red-700 hover:bg-opacity-80 
-              rounded-md py-2 items-center justify-center transition h-[46px] 
-              ${isLoading ? 'cursor-progress' : 'cursor-pointer'} relative`}
-            >
-              {!isLoading ? (
-                <>
-                  <BsIncognito size={30} className='text-white' />
-                  <p className='text-white'>Sign in Anonymously</p>
-                </>
-              ) : (
-                <PulseLoader color='#ffffff' size={10} />
-              )}
-            </div>
-          )}
         </div>
+
+        {variant === 'login' && (
+          <div
+            onClick={async () => {
+              setIsLoading(true);
+              await signIn('credentials', {
+                email: 'test@test.com',
+                password: 'Password123',
+                callbackUrl: '/profiles',
+              });
+              setIsLoading(false);
+            }}
+            className={`flex flex-row mt-8 gap-x-4 hover:bg-opacity-80 
+              rounded-md py-2 items-center justify-center transition h-[46px] 
+              ${isLoading ? 'cursor-progress' : 'cursor-pointer'} relative 
+              bg-gradient-to-r from-red-700 via-cyan-900 to-red-700`}
+          >
+            {!isLoading ? (
+              <>
+                <BsIncognito size={30} className='text-white' />
+                <p className='text-white font-semibold'>
+                  Sign in Anonymously (Demo)
+                </p>
+              </>
+            ) : (
+              <PulseLoader color='#ffffff' size={10} />
+            )}
+          </div>
+        )}
+
         {variant === 'login' && (
           <div className='flex flex-col gap-y-4 mt-8'>
             <div

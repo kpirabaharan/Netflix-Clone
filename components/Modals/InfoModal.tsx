@@ -92,7 +92,7 @@ const InfoModal = () => {
                   <div className='p-8 bg-zinc-900'>
                     <motion.p
                       className='text-white text-2xl md:text-3xl lg:text-4xl h-full 
-                  font-bold mb-2'
+                      font-bold mb-2'
                       initial={{ y: '100%', opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{

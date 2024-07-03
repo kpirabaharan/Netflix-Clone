@@ -37,4 +37,5 @@ const useMousePosition = () => {
   }, []);
   return mouseMoving;
 };
+
 export default useMousePosition;

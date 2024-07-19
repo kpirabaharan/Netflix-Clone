@@ -19,7 +19,7 @@ The app utilizes AWS S3 storage to securely store videos and thumbnail images. T
 
 ## Demo
 
-You can access the live demo of the app at [https://netflix-clone-keeshigan.vercel.app/](https://netflix-clone-keeshigan.vercel.app/).
+You can access the live demo of the app at [https://netflix-clone.keeshigan.com/](https://netflix-clone.keeshigan.com/).
 
 - Feel free to use the anonymous account linked to a dummy email address.
 - Or you can use your own email address.

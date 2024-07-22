@@ -1,7 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['netflix-clone-keeshigan-images.s3.amazonaws.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'netflix-clone-keeshigan-images.s3.amazonaws.com',
+        pathname: '**',
+      },
+    ],
   },
 };
 

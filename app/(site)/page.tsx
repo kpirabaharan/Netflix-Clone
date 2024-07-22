@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 
-import { User, Movie } from '@/types';
+import type { User, Movie } from '@/types';
 import getCurrentUser from '@/actions/getCurrentUser';
 import getMovies from '@/actions/getMovies';
 import getFavoriteMovies from '@/actions/getFavoriteMovies';

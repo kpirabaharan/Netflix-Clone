@@ -16,7 +16,7 @@ const WatchPage = () => {
   const router = useRouter();
   const mouseMoving = useMousePosition();
 
-  const { movie }: { movie: Movie } = useMovie(movieId);
+  const { movie }: { movie: Movie } = useMovie(movieId as string);
 
   useEffect(() => {
     setIsPlaying(true);

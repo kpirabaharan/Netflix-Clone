@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { signIn } from 'next-auth/react';
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
 import { BsIncognito } from 'react-icons/bs';
 import { toast } from 'react-hot-toast';
 import { PulseLoader } from 'react-spinners';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 import { postData } from '@/lib/helpers';
 
@@ -17,11 +18,14 @@ const AuthContent = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  const isError = params.get('error') == 'CredentialsSignin';
 
   const [variant, setVariant] = useState('login');
 
   const toggleVariant = useCallback(() => {
-    setVariant((currentVariant) =>
+    setVariant(currentVariant =>
       currentVariant === 'login' ? 'register' : 'login',
     );
   }, []);
@@ -93,6 +97,12 @@ const AuthContent = () => {
           />
         </div>
 
+        {isError && (
+          <div className='pt-4'>
+            <p className='text-red-500 font-semibold'>Invalid Credentials</p>
+          </div>
+        )}
+
         <div className='mt-8'>
           <button
             disabled={isLoading}
@@ -141,7 +151,7 @@ const AuthContent = () => {
           </div>
         )}
 
-        {variant === 'login' && (
+        {/* {variant === 'login' && (
           <div className='flex flex-col gap-y-4 mt-8'>
             <div
               onClick={async () => {
@@ -162,6 +172,7 @@ const AuthContent = () => {
                 <PulseLoader color='#ff0000' size={10} />
               )}
             </div>
+
             <div
               onClick={async () => {
                 setIsLoading(true);
@@ -182,7 +193,7 @@ const AuthContent = () => {
               )}
             </div>
           </div>
-        )}
+        )} */}
 
         <p className='text-neutral-500 mt-12 text-base'>
           {variant === 'login' ? 'New to Netflix?' : 'Already have an account?'}
